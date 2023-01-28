@@ -23,12 +23,12 @@ sub gettopic {
 			# HTML形式
 			# (HTML形式の場合、スレッドIDの取得ができないので、本スクリプトでは
 			#  サポートされません)
-			&prterror ( 'HTML形式の過去ログには対応していません' );
+			&prterror ( 'HTML-formatted logs are not supported.' );
 			
 		} else {
 			
 			# バイナリ形式
-			open ( OLDLOG, "$oldlogfiledir$FORM{'e'}" ) || &prterror ( "$FORM{'e'}を開けませんでした" );
+			open ( OLDLOG, "$oldlogfiledir$FORM{'e'}" ) || &prterror ( "$FORM{'e'} could not be opened." );
 			eval 'flock ( OLDLOG, 1 )';
 			seek ( OLDLOG, 0, 0 );
 			@oldlog = <OLDLOG>;
@@ -54,7 +54,7 @@ sub gettopic {
 		}
 		
 	} else {
-		&prterror ( 'ファイル名が不明です' );
+		&prterror ( 'File name is unknown.' );
 	}
 }
 
@@ -70,11 +70,11 @@ sub lsttopic {
 	&gettopic;
 	
 	$FORM{'e'} =~ /(\d\d\d\d)(\d\d)(\d\d)\.(\w)/;
-	&prthtmlhead ( "$bbstitle トピック一覧 $1/$2/$3" );
+	&prthtmlhead ( "$bbstitle Topic List $1/$2/$3" );
 	
 	print <<EOF;
-<P><STRONG><FONT size="+1">$bbstitle トピック一覧</FONT></STRONG></P>
-<FONT size="-1">表\示 - 件数 - 内容 - 最終更新日時</FONT>
+<P><STRONG><FONT size="+1">$bbstitle Topic List</FONT></STRONG></P>
+<FONT size="-1">Table - Number of pieces - Content - Last updated on</FONT>
 <HR>
 <FONT size="-1">
 EOF
@@ -90,7 +90,7 @@ EOF
 	print <<EOF;
 </FONT>
 <HR>
-<P align="right"><A href="$cgiurl">掲示板へ</A></P>
+<P align="right"><A href="$cgiurl">Go to Bulletin Board</A></P>
 </BODY>
 </HTML>
 EOF
