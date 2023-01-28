@@ -1,16 +1,18 @@
 #! /usr/bin/perl
 
 #
-# Crap Happens Rev.0.1 Preview 9 (2000.9.3)
+# Shit Happens Rev.0.1 Preview 9 (2000.9.3) (LOLWUT????)
 # (Bulletin Board Body)
 # (Message Board Body)	
 # mailto kuzuha@kurumi.ne.jp
 # webpage http://kuzuha.tripod.co.jp/
+# translated by jr
+# https://github.com/ShockAwer/ksmoe
 #	
 # TABSIZE=4
 #
 
-# kuzuha sukuriputo + @kuzuha moe ver1.1.1
+# kuzuhascript + @kuzuha moe ver1.1.1
 
 # # webpage 
 # 2002/11/27
@@ -36,7 +38,7 @@
 ###############################################################################
 
 # 掲示板CGIのURL
-$cgiurl = 'http://strange.kurumi.ne.jp/strangeworld/bbs.cgi';
+$cgiurl = '//bbs.cgi';
 
 # jcode.plのパス
 $jcode = './jcode.pl';
@@ -89,7 +91,7 @@ $msgdisp = 20;
 $difftime = 0;
 
 # 掲示板の名前
-$bbstitle = 'Dubious Warudo';
+$bbstitle = 'KuzuhaScript Scrap Scoop Samples';
 
 # 背景色
 $bgc    = '004040';
@@ -118,9 +120,9 @@ $txtauthor = '★';
 # スレッド表示ボタンに表示する文字
 $txtthread = '◆';
 
-# フォロー投稿時に相手の投稿者名に付加する文字
-# （一般の掲示板では「さん」などを付けると良いでしょう）
-$fsubj = '';
+# Characters to be added to the other poster's name when posting followers.
+# (In a general message board, it is better to add "san" etc.)
+$fsubj = '-san';
 
 # 過去ログ保存用ディレクトリの名前
 $oldlogfiledir = './log/';
@@ -207,15 +209,15 @@ $sptime = 20;
 $cookie = 0;
 
 # 管理人の名前
-$adminname = 'くずは';
+$adminname = 'Kuzuha';
 
 # 管理人のメールアドレス
 $adminmail = 'kuzuha@kurumi.ne.jp';
 
-# 管理用パスワード（最初は空のままにしておいてください）
+# Admin password (leave blank initially)
 $adminpost = '';
 
-# 管理モード移行用キーワード（必ず変更すること）
+# Keyword for transition to management mode (must be changed)
 $adminkey = 'adminlogin';
 
 # Public Relations Office URL
