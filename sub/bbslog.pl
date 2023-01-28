@@ -1,16 +1,16 @@
-#! /usr/local/bin/perl
+#! /usr/bin/perl
 
 #
-#	‚­‚¸‚Í‚·‚­‚è‚Õ‚Æ Rev.0.1 Preview 9 (2000.9.3)
-#	 (‰ß‹ƒƒOƒrƒ…[ƒA[)
+#	ããšã¯ã™ãã‚Šã·ã¨ Rev.0.1 Preview 9 (2000.9.3)
+#	 (éå»ãƒ­ã‚°ãƒ“ãƒ¥ãƒ¼ã‚¢ãƒ¼)
 #	
-#	¦ƒƒO¤l‚³‚ñ‚Ì Getlog Ver0.3b4.0921 (’Êí”Å‹y‚ÑŒ’PˆÊ•Û‘¶ƒƒO‘Î‰”Å)
-#	  ‚Ì‰ü‘¢”Å‚Å‚·
+#	â€»ãƒ­ã‚°å•†äººã•ã‚“ã® Getlog Ver0.3b4.0921 (é€šå¸¸ç‰ˆåŠã³æœˆå˜ä½ä¿å­˜ãƒ­ã‚°å¯¾å¿œç‰ˆ)
+#	  ã®æ”¹é€ ç‰ˆã§ã™
 #
 
 
 ###############################################################################
-#  ƒ_ƒEƒ“ƒ[ƒh‹@”\g—p‰Â”Ûƒ`ƒFƒbƒN
+#  ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰æ©Ÿèƒ½ä½¿ç”¨å¯å¦ãƒã‚§ãƒƒã‚¯
 ###############################################################################
 
 sub dlchk {
@@ -41,7 +41,7 @@ sub dlchk {
 
 
 ###############################################################################
-#  ‰ß‹ƒƒOƒŠƒXƒg•\¦
+#  éå»ãƒ­ã‚°ãƒªã‚¹ãƒˆè¡¨ç¤º
 ###############################################################################
 
 sub oldloglist {
@@ -50,7 +50,7 @@ sub oldloglist {
 	
 	if ( $oldlogfmt && $oldlogbtn ) {
 		$dspqmsg = <<EOF;
-                <INPUT type="checkbox" name="btn" value="checked">ˆø—p‹@”\\g—p
+                <INPUT type="checkbox" name="btn" value="checked">å¼•ç”¨æ©Ÿèƒ½\ä½¿ç”¨
 EOF
 	} else {
 		$dspqmsg = '&nbsp;';
@@ -58,26 +58,26 @@ EOF
 	
 	if ( $gzip ) {
 		$dspgzip = <<EOF;
-                <INPUT type="checkbox" name="g" value="checked" $S_gzchk[$gzipu]>gzipˆ³k“]‘—
+                <INPUT type="checkbox" name="g" value="checked" $S_gzchk[$gzipu]>gzipåœ§ç¸®è»¢é€
 EOF
 	} else {
 		$dspgzip = '&nbsp;';
 	}
 	
 	if ( &dlchk ) {
-		$dspdown = '1">ƒ_ƒEƒ“ƒ[ƒh';
+		$dspdown = '1">ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰';
 	} else {
-		$dspdown = '2">‘SŒ•\¦';
+		$dspdown = '2">å…¨ä»¶è¡¨ç¤º';
 	}
 	
-	opendir ( DIR, $oldlogfiledir ) || &prterror ( 'ƒfƒBƒŒƒNƒgƒŠ‚ªŠJ‚¯‚Ü‚¹‚ñ‚Å‚µ‚½' );
+	opendir ( DIR, $oldlogfiledir ) || &prterror ( 'ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªãŒé–‹ã‘ã¾ã›ã‚“ã§ã—ãŸ' );
 	@files = readdir ( DIR );
 	closedir ( DIR );
 	@files = sort { $a <=> $b; } @files;
 	
-	&prthtmlhead ( "$bbstitle ‰ß‹ƒƒOŒŸõEƒ_ƒEƒ“ƒ[ƒh" );
+	&prthtmlhead ( "$bbstitle éå»ãƒ­ã‚°æ¤œç´¢ãƒ»ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰" );
 	print <<EOF;
-<P align="center"><STRONG><FONT size="+1">$bbstitle ‰ß‹ƒƒOˆê——</FONT></STRONG></P>
+<P align="center"><STRONG><FONT size="+1">$bbstitle éå»ãƒ­ã‚°ä¸€è¦§</FONT></STRONG></P>
 
 <FORM method="GET" action="$cgiurl">
   <CENTER>
@@ -87,7 +87,7 @@ EOF
           <HR size="2">
           <TABLE border="0" width="100%">
             <TR>
-              <TD colspan="5">‰ß‹ƒƒOˆê——</TD>
+              <TD colspan="5">éå»ãƒ­ã‚°ä¸€è¦§</TD>
             </TR>
 EOF
 	
@@ -107,7 +107,7 @@ EOF
 			}
 			if ( $oldlogfmt ) {
 				$dsptopic = <<EOF;
-              <TD align="right"><FONT size="-1"><A href="$cgiurl?m=l&e=$files[$i]">ƒgƒsƒbƒNˆê——</A></FONT></TD>
+              <TD align="right"><FONT size="-1"><A href="$cgiurl?m=l&e=$files[$i]">ãƒˆãƒ”ãƒƒã‚¯ä¸€è¦§</A></FONT></TD>
 EOF
 			} else {
 				$dsptopic = '';
@@ -135,24 +135,24 @@ EOF
           <TABLE border="0">
             <TR>
               <TD colspan="3">
-                ƒL[ƒ[ƒhw’è
+                ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰æŒ‡å®š
               </TD>
             </TR>
             <TR>
               <TD colspan="3">
                 <INPUT type="text" name="kwd" size="40" maxlength="255">
-                <INPUT type="submit" value="   ŒŸ   õ   ">
+                <INPUT type="submit" value="   æ¤œ   ç´¢   ">
               </TD>
             </TR>
             <TR>
               <TD>
-                <FONT size="-1">w’è</FONT>
+                <FONT size="-1">æ™‚åˆ»æŒ‡å®š</FONT>
               </TD>
               <TD>
-                <FONT size="-1">˜_—®</FONT>
+                <FONT size="-1">è«–ç†å¼</FONT>
               </TD>
               <TD>
-                <FONT size="-1">ŒŸõ‘ÎÛ</FONT>
+                <FONT size="-1">æ¤œç´¢å¯¾è±¡</FONT>
               </TD>
             </TR>
             <TR>
@@ -185,7 +185,7 @@ EOF
                   <OPTION value="21">21</OPTION>
                   <OPTION value="22">22</OPTION>
                   <OPTION value="23">23</OPTION>
-                </SELECT> 
+                </SELECT> æ™‚
                 <SELECT name="e1" size="1">
                   <OPTION value="0">00</OPTION>
                   <OPTION value="5">05</OPTION>
@@ -199,7 +199,7 @@ EOF
                   <OPTION value="45">45</OPTION>
                   <OPTION value="50">50</OPTION>
                   <OPTION value="55">55</OPTION>
-                </SELECT> •ª‚©‚ç 
+                </SELECT> åˆ†ã‹ã‚‰ 
                 <SELECT name="s2" size="1">
                   <OPTION value="24">24</OPTION>
                   <OPTION value="0">0</OPTION>
@@ -226,7 +226,7 @@ EOF
                   <OPTION value="21">21</OPTION>
                   <OPTION value="22">22</OPTION>
                   <OPTION value="23">23</OPTION>
-                </SELECT> 
+                </SELECT> æ™‚
                 <SELECT name="e2" size="1">
                   <OPTION value="0">00</OPTION>
                   <OPTION value="5">05</OPTION>
@@ -240,7 +240,7 @@ EOF
                   <OPTION value="45">45</OPTION>
                   <OPTION value="50">50</OPTION>
                   <OPTION value="55">55</OPTION>
-                </SELECT> •ª‚Ü‚Å</FONT>
+                </SELECT> åˆ†ã¾ã§</FONT>
 EOF
 	} else {
 		print <<EOF;
@@ -276,7 +276,7 @@ EOF
                   <OPTION value="29">29</OPTION>
                   <OPTION value="30">30</OPTION>
                   <OPTION value="31">31</OPTION>
-                </SELECT> “ú 
+                </SELECT> æ—¥ 
                 <SELECT name="e1" size="1">
                   <OPTION value="0">0</OPTION>
                   <OPTION value="1">1</OPTION>
@@ -302,7 +302,7 @@ EOF
                   <OPTION value="21">21</OPTION>
                   <OPTION value="22">22</OPTION>
                   <OPTION value="23">23</OPTION>
-                </SELECT>  ‚©‚ç
+                </SELECT> æ™‚ ã‹ã‚‰
                 <SELECT name="s2" size="1">
                   <OPTION value="1">1</OPTION>
                   <OPTION value="2">2</OPTION>
@@ -335,7 +335,7 @@ EOF
                   <OPTION value="29">29</OPTION>
                   <OPTION value="30">30</OPTION>
                   <OPTION value="31" selected>31</OPTION>
-                </SELECT> “ú
+                </SELECT> æ—¥
                 <SELECT name="e2" size="1">
                   <OPTION value="24">24</OPTION>
                   <OPTION value="0">0</OPTION>
@@ -362,22 +362,22 @@ EOF
                   <OPTION value="21">21</OPTION>
                   <OPTION value="22">22</OPTION>
                   <OPTION value="23">23</OPTION>
-                </SELECT>  ‚Ü‚Å</FONT>
+                </SELECT> æ™‚ ã¾ã§</FONT>
 EOF
 	}
 	print <<EOF;
               </TD>
               <TD><FONT size="-1">
                 <SELECT name="ao">
-                  <OPTION value="a">ANDŒŸõ</OPTION>
-                  <OPTION value="o">ORŒŸõ</OPTION>
+                  <OPTION value="a">ANDæ¤œç´¢</OPTION>
+                  <OPTION value="o">ORæ¤œç´¢</OPTION>
                 </SELECT></FONT>
               </TD>
               <TD><FONT size="-1">
                 <SELECT name="tt">
-                  <OPTION value="a">‘S•¶</OPTION>
-                  <OPTION value="u">“ŠeÒ–¼</OPTION>
-                  <OPTION value="t">‘è–¼</OPTION>
+                  <OPTION value="a">å…¨æ–‡</OPTION>
+                  <OPTION value="u">æŠ•ç¨¿è€…å</OPTION>
+                  <OPTION value="t">é¡Œå</OPTION>
                 </SELECT></FONT>
               </TD>
             </TR>
@@ -389,11 +389,11 @@ EOF
           <TABLE border="0" width="100%">
             <TR>
               <TD width="50%"><FONT size="-1">
-                <INPUT type="checkbox" name="alp" value="checked" checked>‘å•¶š¬•¶š“¯ˆê‹<BR>
+                <INPUT type="checkbox" name="alp" value="checked" checked>å¤§æ–‡å­—å°æ–‡å­—åŒä¸€è¦–<BR>
                 $dspqmsg</FONT>
               </TD>
               <TD width="50%"><FONT size="-1">
-                <INPUT type="checkbox" name="j" value="checked">jcode.plg—p<BR>
+                <INPUT type="checkbox" name="j" value="checked">jcode.plä½¿ç”¨<BR>
                 $dspgzip</FONT>
               </TD>
             </TR>
@@ -408,12 +408,12 @@ EOF
     </TABLE>
   </CENTER>
   <INPUT type="hidden" name="m" value="g">
-  <INPUT type="hidden" name="k" value="‚ ">
+  <INPUT type="hidden" name="k" value="ã‚">
   <INPUT type="hidden" name="sv" value="on">
 </FORM>
-<P align="center"><A href="$cgiurl">Œf¦”Â‚Ö</A></P>
+<P align="center"><A href="$cgiurl">æ²ç¤ºæ¿ã¸</A></P>
 <H4 align="right">Getlog Ver0.3b4.0921<BR>
-i‚­‚¸‚Í‚·‚­‚è‚Õ‚Æ‘g‚İ‚İƒo[ƒWƒ‡ƒ“j</H4>
+ï¼ˆããšã¯ã™ãã‚Šã·ã¨çµ„ã¿è¾¼ã¿ãƒãƒ¼ã‚¸ãƒ§ãƒ³ï¼‰</H4>
 </BODY>
 </HTML>
 EOF
@@ -421,7 +421,7 @@ EOF
 
 
 ###############################################################################
-#  ‰ß‹ƒƒO•\¦
+#  éå»ãƒ­ã‚°è¡¨ç¤º
 ###############################################################################
 
 sub prtoldlog {
@@ -442,7 +442,7 @@ sub prtoldlog {
 	  $hitcount
 	  );
 	
-	open ( OLDLOG, "$oldlogfiledir$FORM{'e'}" ) || &prterror ( "$FORM{'e'}‚ğŠJ‚¯‚Ü‚¹‚ñ‚Å‚µ‚½" );
+	open ( OLDLOG, "$oldlogfiledir$FORM{'e'}" ) || &prterror ( "$FORM{'e'}ã‚’é–‹ã‘ã¾ã›ã‚“ã§ã—ãŸ" );
 	eval 'flock ( OLDLOG, 1 )';
 	seek ( OLDLOG, 0, 0 );
 	@oldlog = <OLDLOG>;
@@ -458,7 +458,7 @@ sub prtoldlog {
 	$FORM{'e'} =~ /.*\.(.*)/;
 	if ( $1 =~ /htm/ ) {
 		
-		# HTMLŒ`®‚Ì‰ß‹ƒƒO
+		# HTMLå½¢å¼ã®éå»ãƒ­ã‚°
 		if ( $FORM{'sv'} ) {
 			print "<H1>$FORM{'e'}</H1><HR>";
 			
@@ -477,29 +477,29 @@ sub prtoldlog {
 			for ( $i = 0 ; $i < @oldlog ; $i++ ) {
 				
 				if ( $oldlog[$i] =~ /^<!-- \d+ -->/ ) {
-					# ƒƒbƒZ[ƒWƒuƒƒbƒN‚Ìæ“ª
+					# ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯ã®å…ˆé ­
 					$top = $i;
 				} elsif ( $oldlog[$i] =~ /^<!-- -->/ ) {
-					# ƒƒbƒZ[ƒWƒuƒƒbƒN‚Ì––”ö
+					# ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯ã®æœ«å°¾
 					$btm = $i;
 				}
 				
 				if ( $top > 0 ) {
 					#
-					#  0 : ƒ^[ƒ~ƒl[ƒ^[•¶š—ñ
-					#  1 : ‘è–¼
-					#  2 : “ŠeÒ–¼
-					#  3 : “Še
-					#  5 ` @msgline - 5 : ƒƒbƒZ[ƒW
-					# @msgline - 1 : ƒ^[ƒ~ƒl[ƒ^[•¶š—ñ
-					# ƒƒbƒZ[ƒWƒuƒƒbƒN“à‚Ìˆ—
+					#  0 : ã‚¿ãƒ¼ãƒŸãƒãƒ¼ã‚¿ãƒ¼æ–‡å­—åˆ—
+					#  1 : é¡Œå
+					#  2 : æŠ•ç¨¿è€…å
+					#  3 : æŠ•ç¨¿æ™‚åˆ»
+					#  5 ï½ @msgline - 5 : ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
+					# @msgline - 1 : ã‚¿ãƒ¼ãƒŸãƒãƒ¼ã‚¿ãƒ¼æ–‡å­—åˆ—
+					# ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯å†…ã®å‡¦ç†
 					if ( $oldlog[$i] =~ /$msgline[$MPTR{'user'}]/ ) {
-						# “ŠeÒ
+						# æŠ•ç¨¿è€…
 						if ( ( $FORM{'tt'} eq 'u' ) || ( $FORM{'tt'} eq 'a' ) ) {
 							$k .= $1
 						}
 					} elsif ( $oldlog[$i] =~ /^$msgline[$MPTR{'title'}]$/ ) {
-						# ‘è–¼
+						# é¡Œå
 						if ( ( $FORM{'tt'} eq 't' ) || ( $FORM{'tt'} eq 'a' ) ) {
 							$k .= $2
 						}
@@ -531,7 +531,7 @@ sub prtoldlog {
 						if ( $hit > 0 ) {
 							$hit = 0;
 							$j = 0;
-							if ( $FORM{'ao'} eq 'o' ) {			# ORŒŸõ
+							if ( $FORM{'ao'} eq 'o' ) {			# ORæ¤œç´¢
 								while ( $j < @keyword && !$hit ) {
 									if ( ( $FORM{'alp'} && $k =~ /$keyword[$j]/i ) ||
 									  ( $k =~ /$keyword[$j]/ ) ) {
@@ -541,7 +541,7 @@ sub prtoldlog {
 									}
 								}
 							} else {
-								while ( $j < @keyword ) {		# ANDŒŸõ
+								while ( $j < @keyword ) {		# ANDæ¤œç´¢
 									if ( ( $FORM{'alp'} && $k =~ /$keyword[$j]/i ) ||
 									  ( $k =~ /$keyword[$j]/ ) ) {
 										$hit++;
@@ -568,15 +568,15 @@ sub prtoldlog {
 			
 			if ( $FORM{'kwd'} ) {
 				if ( $hitcount > 0 ) {
-					print "<H3>$hitcountŒŒ©‚Â‚©‚è‚Ü‚µ‚½B</H3>";
+					print "<H3>$hitcountä»¶è¦‹ã¤ã‹ã‚Šã¾ã—ãŸã€‚</H3>";
 				} else {
-					print "<H3>w’è‚³‚ê‚½ƒL[ƒ[ƒh‚ÉŠY“–‚·‚éƒƒbƒZ[ƒW‚ÍŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½B</H3>";
+					print "<H3>æŒ‡å®šã•ã‚ŒãŸã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰ã«è©²å½“ã™ã‚‹ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã¯è¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸã€‚</H3>";
 				}
 			}
 			
 		} else {
 			
-			# ‘SƒƒbƒZ[ƒW•\¦
+			# å…¨ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸è¡¨ç¤º
 			foreach ( @oldlog ) {
 				print;
 			}
@@ -584,7 +584,7 @@ sub prtoldlog {
 		
 	} else {
 		
-		# Vƒo[ƒWƒ‡ƒ“‚Ì‰ß‹ƒƒO
+		# æ–°ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã®éå»ãƒ­ã‚°
 		if ( $FORM{'btn'} ) {
 			$FORM{'btn'} = 1;
 		} else {
@@ -650,14 +650,14 @@ sub prtoldlog {
 			
 			if ( $FORM{'kwd'} ) {
 				if ( $hitcount > 0 ) {
-					print "<H3>$hitcountŒŒ©‚Â‚©‚è‚Ü‚µ‚½B</H3>";
+					print "<H3>$hitcountä»¶è¦‹ã¤ã‹ã‚Šã¾ã—ãŸã€‚</H3>";
 				} else {
-					print "<H3>w’è‚³‚ê‚½ƒL[ƒ[ƒh‚ÉŠY“–‚·‚éƒƒbƒZ[ƒW‚ÍŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½B</H3>";
+					print "<H3>æŒ‡å®šã•ã‚ŒãŸã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰ã«è©²å½“ã™ã‚‹ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã¯è¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸã€‚</H3>";
 				}
 			}
 			
 		} else {
-			# ‘SƒƒbƒZ[ƒW•\¦
+			# å…¨ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸è¡¨ç¤º
 			while ( $i < @oldlog ) {
 				&getmessage ( $oldlog[$i] );
 				print &prtmessage ( $FORM{'btn'} );
@@ -670,7 +670,7 @@ sub prtoldlog {
 
 
 ###############################################################################
-#  Getlog ƒƒCƒ“ˆ—
+#  Getlog ãƒ¡ã‚¤ãƒ³å‡¦ç†
 ###############################################################################
 
 sub getlog {
@@ -685,7 +685,7 @@ sub getlog {
 		
 		if ( !$FORM{'e'} ) {
 			
-			&prthtmlhead ( "$bbstitle ‰ß‹ƒƒO" );
+			&prthtmlhead ( "$bbstitle éå»ãƒ­ã‚°" );
 			$fcount = 0;
 			foreach ( sort keys %FORM ) {
 				if ( $_ =~ /^chk([\w.]+)$/ && $FORM{$_} eq 'checked' ) {
@@ -695,7 +695,7 @@ sub getlog {
 				}
 			}
 			if ( !$fcount ) {
-				&prterror ( '•\¦‚·‚éƒtƒ@ƒCƒ‹‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢B' );
+				&prterror ( 'è¡¨ç¤ºã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æŒ‡å®šã—ã¦ãã ã•ã„ã€‚' );
 			}
 			
 		} else {
@@ -712,14 +712,14 @@ Content-Disposition: attachment; filename="$sendfile"
 
 <HTML>
 <HEAD>
-<TITLE>$bbstitle ‰ß‹ƒƒO</TITLE>
+<TITLE>$bbstitle éå»ãƒ­ã‚°</TITLE>
 <META http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
 </HEAD>
 
 $body
 EOF
 			} else {
-				&prthtmlhead ( "$bbstitle ‰ß‹ƒƒO $FORM{'e'}" );
+				&prthtmlhead ( "$bbstitle éå»ãƒ­ã‚° $FORM{'e'}" );
 			}
 			&prtoldlog;
 		}
