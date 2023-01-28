@@ -1,33 +1,33 @@
-#! /usr/local/bin/perl
+#! /usr/bin/perl
 
 #
-#	�����͂�����Ղ� Rev.0.1 Preview 9 (2000.9.3)
-#	 (�Ǘ��c�[��)
+#	くずはすくりぷと Rev.0.1 Preview 9 (2000.9.3)
+#	 (管理ツール)
 #
 
 ###############################################################################
-#  ���b�Z�[�W�폜���[�h���C����ʕ\��
+#  メッセージ削除モードメイン画面表示
 ###############################################################################
 
 sub msglist {
 	
 	my @msgline;
 	
-	&prthtmlhead ( '�����͂�����Ղ� ���b�Z�[�W�폜���[�h' );
+	&prthtmlhead ( 'くずはすくりぷと メッセージ削除モード' );
 	print <<EOF;
 <CENTER>
 <FORM method="post" action="$cgiurl">
 <INPUT type="hidden" name="m" value="ad">
 <INPUT type="hidden" name="u" value="$FORM{'u'}">
 <INPUT type="hidden" name="ad" value="kx">
-<H3 align="center">�����͂�����Ղ� ���b�Z�[�W�폜���[�h</H3>
+<H3 align="center">くずはすくりぷと メッセージ削除モード</H3>
 <TABLE border="1">
   <TR>
-    <TH nowrap>�폜</TH>
-    <TH nowrap>���e��</TH>
-    <TH nowrap>�薼</TH>
-    <TH nowrap>���e��</TH>
-    <TH nowrap>���e�i�ꕔ�j</TH>
+    <TH nowrap>削除</TH>
+    <TH nowrap>投稿日</TH>
+    <TH nowrap>題名</TH>
+    <TH nowrap>投稿者</TH>
+    <TH nowrap>内容（一部）</TH>
   </TR>
 EOF
 	
@@ -40,7 +40,7 @@ EOF
   <TR>
     <TD align="center" nowrap><INPUT type="checkbox" name="id$postid" value="checked"></TD>
     <TD nowrap>$wdate</TD>
-    <TD nowrap>$title �@</TD>
+    <TD nowrap>$title 　</TD>
     <TD nowrap>$user</TD>
     <TD nowrap>$msg</TD>
   </TR>
@@ -49,13 +49,13 @@ EOF
 	
 	print <<EOF;
 </TABLE>
-<INPUT type="submit" value="�폜���s">
+<INPUT type="submit" value="削除実行">
 </FORM>
 <FORM method="post" action="$cgiurl">
 <INPUT type="hidden" name="m" value="ad">
 <INPUT type="hidden" name="u" value="$FORM{'u'}">
 <INPUT type="hidden" name="ad" value="tp">
-<INPUT type="submit" value="�I��">
+<INPUT type="submit" value="終了">
 </FORM>
 </CENTER>
 </BODY>
@@ -65,14 +65,14 @@ EOF
 
 
 ###############################################################################
-#  ���b�Z�[�W�폜
+#  メッセージ削除
 ###############################################################################
 
 sub msgdel {
 	
 	my ( @newlog, @newoldlog, $logitems, $oldlogitems );
 	
-	open ( FLOG, "+<$logfilename" ) || &prterror ( '���b�Z�[�W�ǂݍ��݂Ɏ��s���܂���' );
+	open ( FLOG, "+<$logfilename" ) || &prterror ( 'メッセージ読み込みに失敗しました' );
 	eval 'flock ( FLOG, 2 )';
 	seek ( FLOG, 0, 0 );
 	@logdata = <FLOG>;
@@ -90,7 +90,7 @@ sub msgdel {
 					$oldlogfilename = sprintf ( "%s%d%02d.dat",
 					  $oldlogfiledir, $year, $mon );
 				}
-				open ( CLOG, "+<$oldlogfilename" ) || &prterror ( '�ߋ����O�ǂݍ��݂Ɏ��s���܂���' );
+				open ( CLOG, "+<$oldlogfilename" ) || &prterror ( '過去ログ読み込みに失敗しました' );
 				eval 'flock ( CLOG, 2 )';
 				seek ( CLOG, 0, 0 );
 				@oldlogdata = <CLOG>;
@@ -130,42 +130,42 @@ sub msgdel {
 
 
 ###############################################################################
-#  �p�X���[�h�ݒ��ʕ\��
+#  パスワード設定画面表示
 ###############################################################################
 
 sub setpass {
 	
-	&prthtmlhead ( '�����͂�����Ղ� �p�X���[�h�ݒ���' );
+	&prthtmlhead ( 'くずはすくりぷと パスワード設定画面' );
 	print <<EOF;
 <FORM method="post" action="$cgiurl">
 <INPUT type="hidden" name="m" value="ad">
 <INPUT type="hidden" name="ad" value="ps">
-<H2 align="center">�����͂�����Ղ� �p�X���[�h�ݒ���</H2>
+<H2 align="center">くずはすくりぷと パスワード設定画面</H2>
 <HR>
 <CENTER>
 <TABLE>
   <TR>
     <TD>
-      <FONT size="+1">�p�X���[�h�ݒ���s���܂��B</FONT><BR>
-      ���ꂩ��f���̊Ǘ��Ŏg�p����u�Ǘ��p�p�X���[�h�v����͂��Ă��������B
+      <FONT size="+1">パスワード設定を行います。</FONT><BR>
+      これから掲示板の管理で使用する「管理用パスワード」を入力してください。
     </TD>
   </TR>
 </TABLE>
 <BR>
 <TABLE border="2" cellspacing="4">
   <TR>
-    <TD>�Ǘ��p�p�X���[�h</TD>
+    <TD>管理用パスワード</TD>
     <TD><INPUT size="30" type="text" name="ps" maxlength="127"></TD>
   </TR>
   <TR>
     <TD colspan="2"><FONT size="-1">
-      �����œ��͂���p�X���[�h�́A�Ǘ��l���ł̓��e�A�Ǘ����[�h�̔F�؂̍ۂɎg�p���܂��B
+      ここで入力するパスワードは、管理人名での投稿、管理モードの認証の際に使用します。
       </FONT>
     </TD>
   </TR>
 </TABLE>
 <BR>
-<INPUT type="submit" value="�ݒ�">�@<INPUT type="reset" value="���Z�b�g">
+<INPUT type="submit" value="設定">　<INPUT type="reset" value="リセット">
 </CENTER>
 </FORM>
 </BODY>
@@ -175,7 +175,7 @@ EOF
 
 
 ###############################################################################
-#  �Í����e�X�g
+#  暗号化テスト
 ###############################################################################
 
 sub MD5test {
@@ -207,7 +207,7 @@ sub MD5test {
 
 
 ###############################################################################
-#  �p�X���[�h����
+#  パスワード生成
 ###############################################################################
 
 sub makepass {
@@ -233,36 +233,36 @@ sub makepass {
 		}
 		return $cpass;
 	} else {
-		&prterror ( '�p�X���[�h���Z�����܂��B�U���ȏ�̕��������͂��Ă��������B' );
+		&prterror ( 'パスワードが短すぎます。６桁以上の文字列を入力してください。' );
 	}
 }
 
 
 ###############################################################################
-#  �p�X���[�h�\��
+#  パスワード表示
 ###############################################################################
 
 sub prtpass {
 	
 	my $cpass = &makepass ( $FORM{'ps'} );
-	&prthtmlhead ( '�p�X���[�h' );
+	&prthtmlhead ( 'パスワード' );
 	print <<EOF;
-<H2 align="center">�����͂�����Ղ� �p�X���[�h�ݒ���</H2>
+<H2 align="center">くずはすくりぷと パスワード設定画面</H2>
 <HR>
 <FORM>
 <CENTER>
 <TABLE>
   <TR>
     <TD>
-      <FONT size="+1">�Í����p�X���[�h�𐶐����܂����B</FONT><BR>
-      �f���X�N���v�g�{�̂̏���̈ʒu�ɁA���L�̈Í����p�X���[�h��������R�s�[���Ă��������B
+      <FONT size="+1">暗号化パスワードを生成しました。</FONT><BR>
+      掲示板スクリプト本体の所定の位置に、下記の暗号化パスワード文字列をコピーしてください。
     </TD>
   </TR>
 </TABLE>
 <BR>
 <TABLE border="2" cellspacing="4">
   <TR>
-    <TD>�Ǘ��p�p�X���[�h</TD>
+    <TD>管理用パスワード</TD>
     <TD><INPUT type="text" name="dummy" value="$cpass" readonly></TD>
   </TR>
 </TABLE>
@@ -274,7 +274,7 @@ EOF
 
 
 ###############################################################################
-#  ���O�\��
+#  ログ表示
 ###############################################################################
 
 sub logprint {
@@ -287,36 +287,36 @@ sub logprint {
 
 
 ###############################################################################
-#  �Ǘ����j���[��ʕ\��
+#  管理メニュー画面表示
 ###############################################################################
 
 sub adminmenu {
 	
-	&prthtmlhead ( '�����͂�����Ղ� �Ǘ����j���[' );
+	&prthtmlhead ( 'くずはすくりぷと 管理メニュー' );
 	print <<EOF;
-<H2 align="center">�����͂�����Ղ� �Ǘ����j���[</H2>
+<H2 align="center">くずはすくりぷと 管理メニュー</H2>
 <HR>
 <CENTER>
 <FORM method="post" action="$cgiurl">
 <INPUT type="hidden" name="m" value="ad">
 <INPUT type="hidden" name="ad" value="kl">
 <INPUT type="hidden" name="u" value="$FORM{'u'}">
-<INPUT type="submit" value="���b�Z�[�W�폜">
+<INPUT type="submit" value="メッセージ削除">
 </FORM>
 <FORM method="post" action="$cgiurl">
 <INPUT type="hidden" name="m" value="ad">
 <INPUT type="hidden" name="ad" value="rp">
 <INPUT type="hidden" name="u" value="$FORM{'u'}">
-<INPUT type="submit" value="�Í����p�X���[�h�Đ���">
+<INPUT type="submit" value="暗号化パスワード再生成">
 </FORM>
 <FORM method="post" action="$cgiurl">
 <INPUT type="hidden" name="m" value="ad">
 <INPUT type="hidden" name="ad" value="lv">
 <INPUT type="hidden" name="u" value="$FORM{'u'}">
-<INPUT type="submit" value="���O�{��">
+<INPUT type="submit" value="ログ閲覧">
 </FORM>
 <FORM method="post" action="$cgiurl">
-<INPUT type="submit" value="�I��">
+<INPUT type="submit" value="終了">
 </FORM>
 </CENTER>
 </BODY>
@@ -326,7 +326,7 @@ EOF
 
 
 ###############################################################################
-#  �Ǘ����[�h���C������
+#  管理モードメイン処理
 ###############################################################################
 
 sub adminmain {
@@ -337,7 +337,7 @@ sub adminmain {
 		if ( $FORM{'ps'} ) {
 			&prtpass;
 		} else {
-			&prterror ( '�p�X���[�h�����͂���Ă��܂���B' );
+			&prterror ( 'パスワードが入力されていません。' );
 		}
 	} else {
 		if ( &chkpasswd ) {
@@ -352,7 +352,7 @@ sub adminmain {
 				&logprint;
 			}
 		} else {
-			&prterror ( '�F�؂Ɏ��s���܂����B' );
+			&prterror ( '認証に失敗しました。' );
 		}
 	}
 }
