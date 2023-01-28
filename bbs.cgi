@@ -1,34 +1,34 @@
 #! /usr/bin/perl
 
 #
-#	くずはすくりぷと Rev.0.1 Preview 9 (2000.9.3)
-#	 (掲示板本体)
+# Crap Happens Rev.0.1 Preview 9 (2000.9.3)
+# (Bulletin Board Body)
+# (Message Board Body)	
+# mailto kuzuha@kurumi.ne.jp
+# webpage http://kuzuha.tripod.co.jp/
 #	
-#	  mailto	kuzuha@kurumi.ne.jp
-#	  webpage	http://kuzuha.tripod.co.jp/
-#	
-#	TABSIZE=4
+# TABSIZE=4
 #
 
-#   くずはすくりぷと + ＠くずは萌え ver1.1.1
+# kuzuha sukuriputo + @kuzuha moe ver1.1.1
 
-# 
-#	2002/11/27
-#	Remix＠スクリプト改良:2002/11/21(木)09時04分45秒にて指摘されたバグ潰し
-#	getformdata関数の改良
-#	
-#	2002/12/01
-#	URLに,が入ると途切れてしまうバグ修正
-#	読専画面の下のリロードボタンを使うと標準画面に戻るバグ修正
-# 
-#	2002/12/06
-#   POST のサイズ制限をgetformdata関数に追加
-# 
-#	2003/01/01
-#   次のページのバグ修正
-# 
-#	2003/01/25
-#   未読リロード改善
+# # webpage 
+# 2002/11/27
+# Remix@script improvement: bug fix pointed out at 2002/11/21(Thu)09:04:45
+# Improvement of getformdata function
+# Improvement of getformdata function	
+# Improvement of getformdata function # 2002/12/01
+# Fixed a bug that the URL is interrupted when a comma is included in the URL.
+# Fixed a bug that the reload button at the bottom of the read-only screen returns to the standard screen.
+# getformdata function improved # # 12/06/2002 
+# 2002/12/06
+# Add POST size limit to getformdata function.
+# # 2003/01/01 # Fixed a bug that the size limit of POST was exceeded. 
+# 2003/01/01
+# Fixed a bug on the next page
+# # 2003/01/25 
+# 2003/01/25
+# Improvement of unread reloading
 
 
 ###############################################################################
@@ -50,8 +50,8 @@ $gzip = '/bin/gzip';
 #   1 : 圧縮する
 $gzipu = 0;
 
-# CGIを設置するホストアドレス
-$bbshost = 'strange.kurumi.ne.jp';
+# Host address where the CGI script will be installed
+$bbshost = './';
 
 # ログファイル名
 $logfilename = './bbs.log';
@@ -80,16 +80,16 @@ $logsave = 500;
 #  (1～メッセージの保存数)
 $msgdisp = 20;
 
-# サーバー設置場所と日本との時差
-#   日本             : 0
-#   グリニッジ標準時 : -9
-#   アメリカ         : -14 (ワシントン)
-#                    : -20 (ミッドウェー諸島)
-#   ニュージーランド : 3
+# Time difference between the server location and Japan
+# Japan : 0
+# Greenwich Mean Time : -9
+# USA : -14 (Washington)
+# Japan : -20 (Midway Islands)
+# New Zealand : 3
 $difftime = 0;
 
 # 掲示板の名前
-$bbstitle = 'あやしいわーるど＠くずは';
+$bbstitle = 'Dubious Warudo';
 
 # 背景色
 $bgc    = '004040';
@@ -218,7 +218,7 @@ $adminpost = '';
 # 管理モード移行用キーワード（必ず変更すること）
 $adminkey = 'adminlogin';
 
-# 広報室のURL
+# Public Relations Office URL
 $infopage = 'http://kuzuha.tripod.co.jp/';
 
 # データの受渡方法
@@ -232,8 +232,8 @@ $formmethod = 'post';
 $tmpl_msg = <<EOF;
 <!-- \$postid -->
 <FONT size="+1" color="#\$CC{'subj'}"><B>\$title</B></FONT>
-　投稿者：<B>\$user</B>
-　<FONT size="-1">投稿日：\$wdate\$btn</FONT>
+　Poster：<B>\$user</B>
+　<FONT size="-1">Posted ：\$wdate\$btn</FONT>
 <BLOCKQUOTE>
 <PRE>
 \$msg
@@ -265,7 +265,7 @@ sub getnowdate {
 	$mon++;
 	$nowdate = sprintf ( "%d/%02d/%02d(%s)%02d時%02d分%02d秒", 
 	  $year, $mon, $mday, 
-	  ( '日', '月', '火', '水', '木', '金', '土' )[$wday],
+	  ( 'Sun', 'Mon', 'Tu', 'Wed', 'Thurs', 'Fri', 'Sat' )[$wday],
 	  $hour, $min, $sec );
 }
 
@@ -285,12 +285,12 @@ sub getformdata {
 	}
 	
 	if ($ENV{CONTENT_LENGTH} > $maxmsgsize * 5) {
-	    &prterror ('投稿内容が大きすぎます。');
+	    &prterror ('The post is too big!。');
 	}
 
 	if ( $formbuf[0] ) {
 		
-		&prterror ( '呼び出し元が不正です。' ) 
+		&prterror ( 'Invalid caller.' ) 
 		  if ( $ENV{'HTTP_HOST'} && ! ( $ENV{'HTTP_HOST'} =~ /$bbshost/i ) );
 		
 		$referer = $ENV{'HTTP_REFERER'};
@@ -450,7 +450,7 @@ sub loadmessage {
 		$openlog = "$oldlogfiledir/$1";
 	}
 	
-	open ( READLOG, "$openlog" ) || &prterror ( 'メッセージ読み込みに失敗しました' );
+	open ( READLOG, "$openlog" ) || &prterror ( 'Failed to read messages.' );
 	eval 'flock ( READLOG, 1 )';
 	seek ( READLOG, 0, 0 );
 	@logdata = <READLOG>;
@@ -601,7 +601,7 @@ sub counter {
 		close ( OUT );
 		return $maxcount;
 	} else {
-		return '<FONT color="red">カウンターファイルの出力エラーです</FONT>';
+		return '<FONT color="red">Output error in counter file.</FONT>';
 	}
 }
 
@@ -656,14 +656,14 @@ sub mbrcount {
 			$mbrcount++;
 		}
 		
-		open ( UCNT, ">>$cntfilename" ) || &prterror ( '参加者カウントファイルの書き込みに失敗しました。' );
+		open ( UCNT, ">>$cntfilename" ) || &prterror ( 'Failed to write participant count file。' );
 		eval 'flock ( UCNT, 2 )';
 		truncate ( UCNT, 0 );
 		seek ( UCNT, 0, 0 );
 		print UCNT @cntdata;
 		close ( UCNT );
 		
-		return "　現在の参加者 : $mbrcount名 ($cntlimit秒以内)";
+		return "　Current Participants : $mbrcount name (within $cntlimit seconds)";
 	} else {
 		return;
 	}
@@ -715,7 +715,7 @@ Content-type: text/html
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
 <META http-equiv="Pragma" content="no-cache">
-<TITLE>$bbstitle (エラー)</TITLE>
+<TITLE>$bbstitle (Error)</TITLE>
 </HEAD>
 $body
 <H3>$error</H3>
@@ -738,9 +738,9 @@ sub prtfollow {
 	
 	&loadmessage;
 	
-	&prterror ( 'パラメータがありません。' ) if ( !$FORM{'s'} );
+	&prterror ( 'No parameters? ' ) if ( !$FORM{'s'} );
 	
-	&prthtmlhead ( "$bbstitle フォロー投稿" );
+	&prthtmlhead ( "$bbbstitle Follow-up Submission" );
 	print "<HR>\n";
 	
 	foreach ( 0 .. @logdata - 1 ) {
@@ -753,7 +753,7 @@ sub prtfollow {
 	}
 	
 	if ( !$success ) {
-		print "<H3>指定されたメッセージが見つかりません。</H3></BODY></HTML>";
+		print "<H3>The specified message cannot be found. </H3></BODY></HTML>";
 		exit;
 	}
 	
@@ -780,13 +780,13 @@ sub prtfollow {
 	if ( $user =~ /\<A\shref=\"mailto\:.*\"\>(.*)\<\/A\>/ ) {
 		$user = $1;
 	}
-	print "フォロー記事投稿<BR>\n";
+	print "Follow-up Submission<BR>\n";
 	&prtform ( "＞$user$fsubj", "$formmsg\r", '' );
 	
 	print <<EOF;
   <BR>
   <INPUT type="hidden" name="d" value="$FORM{'d'}">
-  <FONT size="-1">URL自動リンク <INPUT type="checkbox" name="a" value="checked" $S_alchk[$autolink]></FONT><BR>
+  <FONT size="-1">URL auto-linking? <INPUT type="checkbox" name="a" value="checked" $S_alchk[$autolink]></FONT><BR>
   <INPUT type="hidden" name="g" value="$S_gzchk[$gzipu]">
   <INPUT type="hidden" name="p" value="$FORM{'p'}">
   <INPUT type="hidden" name="s" value="$FORM{'s'}">
@@ -834,8 +834,8 @@ sub chkmessage {
 	my ( @hostbin, $admincheck, $adminfname );
 	
 	if ( $referer && ! ( $referer =~ /$cgiurl/i ) ) {
-		&chkerror ( "投稿画面のＵＲＬが<BR>$cgiurl<BR>" .
-		  '以外からの投稿はできません。',  3 );
+		&chkerror ( "Submissions are not allowed from other than<BR>$cgiurl<BR>" .
+		  'URL of the submission screen. ',  3 );
 	}
 	
 	$i = 0;
@@ -844,14 +844,14 @@ sub chkmessage {
 			$i++;
 		}
 	}
-	if ( $i != 0 ) { &chkerror ( '投稿内容の桁数が大きすぎます。', 10 ); }
+	if ( $i != 0 ) { &chkerror ( 'The number of digits in the submitted content is too large. ', 10 ); }
 	
 	if ( ( $FORM{'v'} =~ tr/\r/\r/ ) > ( $maxmsgline - 1 ) ) {
-		&chkerror ( '投稿内容の行数が大きすぎます。', 11 );
+		&chkerror ( 'The number of lines in your post is too large. ', 11 );
 	}
 	
 	if ( length ( $FORM{'v'} ) > $maxmsgsize ) {
-		&chkerror ( '投稿内容が大きすぎます。', 12 );
+		&chkerror ( 'The post is too large. ', 12 );
 	}
 	
 	if ( $FORM{'pc'} ) {
@@ -880,7 +880,7 @@ sub chkmessage {
 			exit;
 		}
 	} else {
-		&chkerror ( 'フォームデータの一部に欠落があります。もう一度やり直して下さい。', 33 );
+		&chkerror ( 'Some form data is missing. Please try again. ', 33 );
 	}
 	
 	if ( $FORM{'i'} =~ / /i ) {
@@ -888,9 +888,9 @@ sub chkmessage {
 	}
 	if ( $FORM{'i'} ) {
 		if ( ! ( $FORM{'i'} =~ /.*\@.*\..*/ ) ) {
-			&chkerror ( 'メールアドレスが正しく入力されていません。', 20 );
+			&chkerror ( 'Your e-mail address has not been entered correctly. ', 20 );
 		} elsif ( $FORM{'i'} =~ /,/ ) {
-			&chkerror ( 'メールアドレスは複数指定できません。', 21 );
+			&chkerror ( 'You cannot specify more than one e-mail address. ', 21 );
 		}
 	}
 	
@@ -911,7 +911,7 @@ sub chkmessage {
 				$FORM{'i'} = $adminmail;
 			}
 		} elsif ( $FORM{'u'} eq $adminpost ) {
-			$FORM{'u'} = "$adminname（ハカー）";
+			$FORM{'u'} = "$adminname（Haka）";
 		} else {
 			$adminfname = quotemeta $adminname;
 			if ( $FORM{'u'} =~ /$adminfname/i ) {
@@ -920,7 +920,7 @@ sub chkmessage {
 				$admincheck =~ s/　//g;
 				$admincheck =~ s/_//g;
 				if ( $admincheck eq $adminname ) {
-					$FORM{'u'} =~ s/$adminfname/$adminname（騙り）/;
+					$FORM{'u'} =~ s/$adminfname/$adminname（Fraud）/;
 				}
 			}
 		}
@@ -938,7 +938,7 @@ sub chkmessage {
 	}
 	if ( $FORM{'f'} ) {
 		( $i, $j ) = split ( /:/, $FORM{'f'} );
-		$FORM{'v'} .= "\r\r<A href=\"m=f\&s=$i\&r=$j\">参考：$j</A>";
+		$FORM{'v'} .= "\r\r<A href=\"m=f\&s=$i\&r=$j\">Ref：$j</A>";
 	}
 }
 
@@ -964,7 +964,7 @@ sub putmessage {
 	
 	my $oldlogext;
 	
-	open ( FLOG, "+<$logfilename" ) || &prterror ( 'メッセージ読み込みに失敗しました' );
+	open ( FLOG, "+<$logfilename" ) || &prterror ( 'Message loading failed.' );
 	eval 'flock ( FLOG, 2 )';
 	seek ( FLOG, 0, 0 );
 	@logdata = <FLOG>;
@@ -1017,7 +1017,7 @@ sub putmessage {
 				  $oldlogfiledir, $year, $mon );
 			}
 			
-			open ( CLOG, ">>$oldlogfilename" ) || &prterror ( '過去ログ出力に失敗しました' );
+			open ( CLOG, ">>$oldlogfilename" ) || &prterror ( 'Failed to output logs.' );
 			eval 'flock ( CLOG, 2 )';
 			
 			$oldstream = select ( CLOG );
@@ -1178,23 +1178,23 @@ sub prtform {
   <INPUT type="hidden" name="m" value="op">
   <INPUT type="hidden" name="k" value="あ">
   <INPUT type="hidden" name="c" value="$FORM{'c'}">
-  <P><FONT size="-1">表\示件数 <INPUT size="6" type="text" name="d" value="$FORM{'d'}">
+  <P><FONT size="-1">Total <INPUT size="6" type="text" name="d" value="$FORM{'d'}">
 $gzipchk
-  　<FONT size="-1">URL自動リンク <INPUT type="checkbox" name="a" value="checked" $S_alchk[$autolink]></FONT>
-  　<INPUT type="submit" name="setup" value="その他の設定"></FONT></P>
-  <FONT size="-1">$countdate から $counter（こわれにくさレベル$countlevel）$mbrcount</FONT>
+  　<FONT size="-1">Automatic URL linking <INPUT type="checkbox" name="a" value="checked" $S_alchk[$autolink]></FONT>
+  　<INPUT type="submit" name="setup" value="Miscellaneous Settings"></FONT></P>
+  <FONT size="-1">$countdate From $counter（Break resistance level $countlevel）$mbrcount</FONT>
   <HR>
   <FONT size="-1">| 
-  <A href="$infopage">広報室</A> | 
-  <A href="$cgiurl?m=g&c=$FORM{'c'}">最近の過去ログ</A> |
+  <A href="$infopage">Public Relations</A> | 
+  <A href="$cgiurl?m=g&c=$FORM{'c'}">Recent Past Logs</A> |
   $bbslink |
   </FONT>
   <HR>
-  <FONT size="-1">$txtfollow : フォロー投稿画面表\示 　 $txtauthor : 投稿者検索表\示 　 $txtthread : スレッド表\示
-  　　　最大登録件数 : $logsave件</FONT>
+  <FONT size="-1">$txtfollow : follow posts $txtauthor : search contributors $txtthread : threads
+  　　　Maximum number of posts : $logsave</FONT>
   <HR>
-  <FONT size="-1"><INPUT type="submit" name="reload" value="リロード"></FONT>
-　<FONT size="-1"><INPUT type="submit" name="midokureload" value="未読リロード"></FONT>
+  <FONT size="-1"><INPUT type="submit" name="reload" value="Refresh"></FONT>
+　<FONT size="-1"><INPUT type="submit" name="midokureload" value="Unread, Refresh"></FONT>
   <INPUT type="hidden" name="p" value="$toppostid">
 </FORM>
 EOF
@@ -1206,40 +1206,40 @@ EOF
 		print <<EOF;
 <FORM method="$formmethod" action="$cgiurl">
   <INPUT type="hidden" name="m" value="p">
-  投稿者 <INPUT size="20" type="text" name="u" maxlength="30" value="$FORM{'u'}"><BR>
-  メール <INPUT size="30" type="text" name="i" maxlength="255" value="$FORM{'i'}"><BR>
-  題名 　<INPUT size="30" type="text" name="t" maxlength="40" value="$dtitle">
-  <INPUT type="submit" name="post" value="投稿／リロード"> <INPUT type="reset" value="消す"><BR> <BR>
-  内容 <FONT size="-1"><I>
-  （適当に改行を入れてください。タグは使えません。内容を書かずに投稿ボタンを押すとリロードになります）
+  Poster <INPUT size="20" type="text" name="u" maxlength="30" value="$FORM{'u'}"><BR>
+  E-Mail <INPUT size="30" type="text" name="i" maxlength="255" value="$FORM{'i'}"><BR>
+  Title 　<INPUT size="30" type="text" name="t" maxlength="40" value="$dtitle">
+  <INPUT type="submit" name="post" value="Post/Reload"> <INPUT type="reset" value="Reset"><BR> <BR>
+  Contents <FONT size="-1"><I>
+  （Please insert line breaks as appropriate. HTML tags are not allowed. If you submit without writing anything, it will reload.）
   </I></FONT><BR>
   <TEXTAREA rows="5" cols="70" name="v">$dmsg</TEXTAREA><BR> <BR>
-  URL <FONT size="-1"><I>（リンクを入れたい場合はここに記入します）</I></FONT><BR>
+  URL <FONT size="-1"><I>（If you want to include a link, enter it here.）</I></FONT><BR>
   <INPUT size="70" type="text" name="l" maxlength="255" value="$dlink">
   $ptext
-  <INPUT type="hidden" name="k" value="あ">
+  <INPUT type="hidden" name="k" value="That">
   <INPUT type="hidden" name="c" value="$FORM{'c'}">
 EOF
 		
 		if ( $FORM{'m'} ne 'f' && !$FORM{'f'} ) {
 			print <<EOF;
-  <P><FONT size="-1">表\示件数 <INPUT size="6" type="text" name="d" value="$FORM{'d'}">
+  <P><FONT size="-1">Total <INPUT size="6" type="text" name="d" value="$FORM{'d'}">
   $gzipchk
-  　<FONT size="-1">URL自動リンク <INPUT type="checkbox" name="a" value="checked" $S_alchk[$autolink]></FONT>
-  　<INPUT type="submit" name="setup" value="その他の設定"></FONT></P>
-  <FONT size="-1">$countdate から $counter（こわれにくさレベル$countlevel）$mbrcount</FONT>
+  　<FONT size="-1">Automatic URL Linking <INPUT type="checkbox" name="a" value="checked" $S_alchk[$autolink]></FONT>
+  　<INPUT type="submit" name="setup" value="Miscellaneous Settings"></FONT></P>
+  <FONT size="-1">$countdate from $counter（Break resistance level $countlevel）$mbrcount</FONT>
   <HR>
   <FONT size="-1">| 
-  <A href="$infopage">広報室</A> | 
-  <A href="$cgiurl?m=g&c=$FORM{'c'}">最近の過去ログ</A> |
+  <A href="$infopage">Public Relations</A> | 
+  <A href="$cgiurl?m=g&c=$FORM{'c'}">Recent Past Logs</A> |
   $bbslink |
   </FONT>
   <HR>
-  <FONT size="-1">$txtfollow : フォロー投稿画面表\示 　 $txtauthor : 投稿者検索表\示 　 $txtthread : スレッド表\示
-  　　　最大登録件数 : $logsave件</FONT>
+  <FONT size="-1">$txtfollow : follow posts $txtauthor : search contributors $txtthread : threads
+  　　　Maximum number of posts : $logsave</FONT>
   <HR>
-  <FONT size="-1"><INPUT type="submit" name="reload" value="リロード"></FONT>
-　<FONT size="-1"><INPUT type="submit" name="midokureload" value="未読リロード"></FONT>
+  <FONT size="-1"><INPUT type="submit" name="reload" value="Refresh"></FONT>
+　<FONT size="-1"><INPUT type="submit" name="midokureload" value="Unread, Refresh"></FONT>
   <INPUT type="hidden" name="p" value="$toppostid">
 </FORM>
 EOF
@@ -1309,9 +1309,9 @@ sub prtmain {
 	}
 	$bmsg++;
 	if ( $j > 0 ) {
-		$msgmore = "以上は、現在登録されている新着順$bmsg番目から$msgtop番目までの記事です。"
+		$msgmore = "These are the currently created articles from $bmsgth to $msgtop in the order of new arrivals."
 	} else {
-		$msgmore = '未読メッセージはありません。';
+		$msgmore = 'There are no unread messages. ';
 	}
 	if ( $logdata[$msgtop] && $j > 0 ) {
 		my ($n_mode, $mode);
@@ -1335,7 +1335,7 @@ sub prtmain {
         <INPUT type="hidden" name="p" value="$toppostid">
         <INPUT type="hidden" name="d" value="$cntnext">
         <INPUT type="hidden" name="c" value="$FORM{'c'}">
-        <INPUT type="submit" name="pnext" value="次のページ">
+        <INPUT type="submit" name="pnext" value="Next page">
       </FORM>
     </TD>
     <TD>
@@ -1344,7 +1344,7 @@ sub prtmain {
         <INPUT type="hidden" name="p" value="$toppostid">
         <INPUT type="hidden" name="d" value="$FORM{'d'}">
         <INPUT type="hidden" name="c" value="$FORM{'c'}"><INPUT type="hidden" name="m" value="$mode">
-        <INPUT type="submit" name="reload" value="リロード">
+        <INPUT type="submit" name="reload" value="Refresh">
       </FORM>
     </TD>
     <TD>
@@ -1353,14 +1353,14 @@ sub prtmain {
         <INPUT type="hidden" name="p" value="$toppostid">
         <INPUT type="hidden" name="d" value="$FORM{'d'}">
         <INPUT type="hidden" name="c" value="$FORM{'c'}"><INPUT type="hidden" name="m" value="$mode">
-        <INPUT type="submit" name="midokureload" value="未読リロード">
+        <INPUT type="submit" name="midokureload" value="Unread, Refresh">
       </FORM>
     </TD>
   </TR>
 </TABLE>
 EOF
 	} else {
-		$msgmore .= 'これ以下の記事はありません。';
+		$msgmore .= 'No further articles are available. ';
 		$msgnext = '';
 	}
 	
@@ -1369,8 +1369,8 @@ EOF
 	print <<EOF;
 <P>
   <B><FONT size="+1">$bbstitle</FONT></B>
-  <FONT size="-1"><A href="$infopage">広報室</A></FONT>
-  <FONT size="-1"><A href="mailto:$adminmail">連絡先</A></FONT>
+  <FONT size="-1"><A href="$infopage">Public Relations</A></FONT>
+  <FONT size="-1"><A href="mailto:$adminmail">E-Mail Admin</A></FONT>
 </P>
 EOF
 	
@@ -1387,7 +1387,7 @@ $msgnext
 <HR>
 
 <P align="right">
-<FONT size="-1"><A href="http://kuzuha.tripod.co.jp/">くずはすくりぷと</A> + <a href="http://www.strangeworld.cx/cgi-bin/remix/bbs.cgi?area=soft41">＠くずは萌え ver1.1.1</a></FONT>
+<FONT size="-1"><A href="http://kuzuha.tripod.co.jp/">KuzuhaScript</A> + <a href="http://www.strangeworld.cx/cgi-bin/remix/bbs.cgi?area=soft41">@ Scrap Scoops Moe ver1.1.1</a> (english translation by jr)</FONT>
 </P>
 
 </BODY>
@@ -1533,9 +1533,9 @@ if ( $FORM{'m'} eq 'p' && $FORM{'v'} && !$FORM{'reload'} ) {
 		$posterr = 255;
 	}
 	if ( $FORM{'ac'} || ( $FORM{'f'} && !$followwin ) ) {
-		&prthtmlhead ( "$bbstitle 書き込み完了" );
+		&prthtmlhead ( "$bbstitle Writing Completed" );
 		print <<EOF;
-<H1>書き込み完了</H1>
+<H1>Writing to the server has succeeded.</H1>
 </BODY>
 </HTML>
 EOF
