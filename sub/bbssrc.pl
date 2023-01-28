@@ -14,9 +14,9 @@ sub srcmessage {
 	my $success = 0;
 	
 	&loadmessage;
-	&prterror ( 'パラメータがありません。' ) if ( !$FORM{'s'} );
+	&prterror ( 'There are no parameters. ' ) if ( !$FORM{'s'} );
 	
-	&prthtmlhead ( "$bbstitle 投稿検索" );
+	&prthtmlhead ( "$bbstitle Post Search" );
 	print "<HR>\n";
 	foreach ( 0 .. @logdata - 1 ) {
 		&getmessage ( $logdata[$_] );
@@ -39,7 +39,7 @@ sub srcmessage {
 	}
 	
 	if ( !$success ) {
-		print "<H3>指定されたメッセージが見つかりません。</H3></BODY></HTML>";
+		print "<H3>The specified message cannot be found. </H3></BODY></HTML>";
 		exit;
 	}
 	
