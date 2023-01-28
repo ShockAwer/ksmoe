@@ -694,7 +694,7 @@ sub prthtmlhead {
 <HTML>
 <HEAD>
 <TITLE>$headtitle</TITLE>
-<META http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </HEAD>
 
 $body
@@ -715,7 +715,7 @@ Content-type: text/html
 
 <HTML>
 <HEAD>
-<META http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <META http-equiv="Pragma" content="no-cache">
 <TITLE>$bbstitle (Error)</TITLE>
 </HEAD>
