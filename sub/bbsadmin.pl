@@ -13,21 +13,21 @@ sub msglist {
 	
 	my @msgline;
 	
-	&prthtmlhead ( 'くずはすくりぷと メッセージ削除モード' );
+	&prthtmlhead ( 'KuzuhaScript Message Delete Mode' );
 	print <<EOF;
 <CENTER>
 <FORM method="post" action="$cgiurl">
 <INPUT type="hidden" name="m" value="ad">
 <INPUT type="hidden" name="u" value="$FORM{'u'}">
 <INPUT type="hidden" name="ad" value="kx">
-<H3 align="center">くずはすくりぷと メッセージ削除モード</H3>
+<H3 align="center">KuzuhaScript Message Delete Mode</H3>
 <TABLE border="1">
   <TR>
-    <TH nowrap>削除</TH>
-    <TH nowrap>投稿日</TH>
-    <TH nowrap>題名</TH>
-    <TH nowrap>投稿者</TH>
-    <TH nowrap>内容（一部）</TH>
+   <TH nowrap>Delete</TH>
+    <TH nowrap>Posted date</TH>
+    <TH nowrap>Title</TH>
+    <TH nowrap>Author</TH>
+    <TH nowrap>Details (partial)</TH>
   </TR>
 EOF
 	
@@ -49,13 +49,13 @@ EOF
 	
 	print <<EOF;
 </TABLE>
-<INPUT type="submit" value="削除実行">
+<INPUT type="submit" value="Deletion Execution">
 </FORM>
 <FORM method="post" action="$cgiurl">
 <INPUT type="hidden" name="m" value="ad">
 <INPUT type="hidden" name="u" value="$FORM{'u'}">
 <INPUT type="hidden" name="ad" value="tp">
-<INPUT type="submit" value="終了">
+<INPUT type="submit" value="Terminate">
 </FORM>
 </CENTER>
 </BODY>
@@ -72,7 +72,7 @@ sub msgdel {
 	
 	my ( @newlog, @newoldlog, $logitems, $oldlogitems );
 	
-	open ( FLOG, "+<$logfilename" ) || &prterror ( 'メッセージ読み込みに失敗しました' );
+	open ( FLOG, "+<$logfilename" ) || &prterror ( 'Message loading failed.' );
 	eval 'flock ( FLOG, 2 )';
 	seek ( FLOG, 0, 0 );
 	@logdata = <FLOG>;
@@ -90,7 +90,7 @@ sub msgdel {
 					$oldlogfilename = sprintf ( "%s%d%02d.dat",
 					  $oldlogfiledir, $year, $mon );
 				}
-				open ( CLOG, "+<$oldlogfilename" ) || &prterror ( '過去ログ読み込みに失敗しました' );
+				open ( CLOG, "+<$oldlogfilename" ) || &prterror ( 'Failed to load logs.' );
 				eval 'flock ( CLOG, 2 )';
 				seek ( CLOG, 0, 0 );
 				@oldlogdata = <CLOG>;
@@ -135,37 +135,37 @@ sub msgdel {
 
 sub setpass {
 	
-	&prthtmlhead ( 'くずはすくりぷと パスワード設定画面' );
+	&prthtmlhead ( 'KuzuhaScript Password Setting Screen' );
 	print <<EOF;
 <FORM method="post" action="$cgiurl">
 <INPUT type="hidden" name="m" value="ad">
 <INPUT type="hidden" name="ad" value="ps">
-<H2 align="center">くずはすくりぷと パスワード設定画面</H2>
+<H2 align="center">KuzuhaScript Password Setting Screen</H2>
 <HR>
 <CENTER>
 <TABLE>
   <TR>
     <TD>
-      <FONT size="+1">パスワード設定を行います。</FONT><BR>
-      これから掲示板の管理で使用する「管理用パスワード」を入力してください。
+      <FONT size="+1">Password setting. </FONT><BR>
+      Please enter the "Admin Password" that will be used from now on to manage the bulletin board. 
     </TD>
   </TR>
 </TABLE>
 <BR>
 <TABLE border="2" cellspacing="4">
   <TR>
-    <TD>管理用パスワード</TD>
+    <TD>The admin password will be:</TD>
     <TD><INPUT size="30" type="text" name="ps" maxlength="127"></TD>
   </TR>
   <TR>
     <TD colspan="2"><FONT size="-1">
-      ここで入力するパスワードは、管理人名での投稿、管理モードの認証の際に使用します。
+      The password you enter here will be used when posting under the administrator's name and authenticating in admin mode.<br>(Make sure it is easy to remember)
       </FONT>
     </TD>
   </TR>
 </TABLE>
 <BR>
-<INPUT type="submit" value="設定">　<INPUT type="reset" value="リセット">
+<INPUT type="submit" value="I want to use this!">　<INPUT type="reset" value="Scrap that...">
 </CENTER>
 </FORM>
 </BODY>
@@ -233,7 +233,7 @@ sub makepass {
 		}
 		return $cpass;
 	} else {
-		&prterror ( 'パスワードが短すぎます。６桁以上の文字列を入力してください。' );
+		&prterror ( 'Password is too short, please enter a string of at least 6 digits. ' );
 	}
 }
 
@@ -245,24 +245,24 @@ sub makepass {
 sub prtpass {
 	
 	my $cpass = &makepass ( $FORM{'ps'} );
-	&prthtmlhead ( 'パスワード' );
+	&prthtmlhead ( 'Password' );
 	print <<EOF;
-<H2 align="center">くずはすくりぷと パスワード設定画面</H2>
+<H2 align="center">KuzuhaScript Password Setting Screen</H2>
 <HR>
 <FORM>
 <CENTER>
 <TABLE>
   <TR>
     <TD>
-      <FONT size="+1">暗号化パスワードを生成しました。</FONT><BR>
-      掲示板スクリプト本体の所定の位置に、下記の暗号化パスワード文字列をコピーしてください。
+      <FONT size="+1">Password generated and encyrpted. </FONT><BR>
+      Copy the following encrypted password string into the designated location into the configuration of bbs.cgi -- between the singular quotes in line 218
     </TD>
   </TR>
 </TABLE>
 <BR>
 <TABLE border="2" cellspacing="4">
   <TR>
-    <TD>管理用パスワード</TD>
+    <TD>Admin password</TD>
     <TD><INPUT type="text" name="dummy" value="$cpass" readonly></TD>
   </TR>
 </TABLE>
@@ -292,31 +292,31 @@ sub logprint {
 
 sub adminmenu {
 	
-	&prthtmlhead ( 'くずはすくりぷと 管理メニュー' );
+	&prthtmlhead ( 'KuzuhaScript Management Menu' );
 	print <<EOF;
-<H2 align="center">くずはすくりぷと 管理メニュー</H2>
+<H2 align="center">KuzuhaScript Management Menu</H2>
 <HR>
 <CENTER>
 <FORM method="post" action="$cgiurl">
 <INPUT type="hidden" name="m" value="ad">
 <INPUT type="hidden" name="ad" value="kl">
 <INPUT type="hidden" name="u" value="$FORM{'u'}">
-<INPUT type="submit" value="メッセージ削除">
+<INPUT type="submit" value="Message Deletion">
 </FORM>
 <FORM method="post" action="$cgiurl">
 <INPUT type="hidden" name="m" value="ad">
 <INPUT type="hidden" name="ad" value="rp">
 <INPUT type="hidden" name="u" value="$FORM{'u'}">
-<INPUT type="submit" value="暗号化パスワード再生成">
+<INPUT type="submit" value="Encrypted password regeneration">
 </FORM>
 <FORM method="post" action="$cgiurl">
 <INPUT type="hidden" name="m" value="ad">
 <INPUT type="hidden" name="ad" value="lv">
 <INPUT type="hidden" name="u" value="$FORM{'u'}">
-<INPUT type="submit" value="ログ閲覧">
+<INPUT type="submit" value="Log Viewing">
 </FORM>
 <FORM method="post" action="$cgiurl">
-<INPUT type="submit" value="終了">
+<INPUT type="submit" value="Terminate">
 </FORM>
 </CENTER>
 </BODY>
@@ -337,7 +337,7 @@ sub adminmain {
 		if ( $FORM{'ps'} ) {
 			&prtpass;
 		} else {
-			&prterror ( 'パスワードが入力されていません。' );
+			&prterror ( 'Password not entered. ' );
 		}
 	} else {
 		if ( &chkpasswd ) {
@@ -352,7 +352,7 @@ sub adminmain {
 				&logprint;
 			}
 		} else {
-			&prterror ( '認証に失敗しました。' );
+			&prterror ( 'Authentication failed. ' );
 		}
 	}
 }
