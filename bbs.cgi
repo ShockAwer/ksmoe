@@ -1,8 +1,8 @@
-#! /usr/local/bin/perl
+#! /usr/bin/perl
 
 #
-#	‚­‚¸‚Í‚·‚­‚è‚Õ‚Æ Rev.0.1 Preview 9 (2000.9.3)
-#	 (Œf¦”Â–{‘Ì)
+#	ããšã¯ã™ãã‚Šã·ã¨ Rev.0.1 Preview 9 (2000.9.3)
+#	 (æ²ç¤ºæ¿æœ¬ä½“)
 #	
 #	  mailto	kuzuha@kurumi.ne.jp
 #	  webpage	http://kuzuha.tripod.co.jp/
@@ -10,230 +10,230 @@
 #	TABSIZE=4
 #
 
-#   ‚­‚¸‚Í‚·‚­‚è‚Õ‚Æ + —‚­‚¸‚Í–G‚¦ ver1.1.1
+#   ããšã¯ã™ãã‚Šã·ã¨ + ï¼ ããšã¯èŒãˆ ver1.1.1
 
 # 
 #	2002/11/27
-#	Remix—ƒXƒNƒŠƒvƒg‰ü—Ç:2002/11/21(–Ø)0904•ª45•b‚É‚Äw“E‚³‚ê‚½ƒoƒO’×‚µ
-#	getformdataŠÖ”‚Ì‰ü—Ç
+#	Remixï¼ ã‚¹ã‚¯ãƒªãƒ—ãƒˆæ”¹è‰¯:2002/11/21(æœ¨)09æ™‚04åˆ†45ç§’ã«ã¦æŒ‡æ‘˜ã•ã‚ŒãŸãƒã‚°æ½°ã—
+#	getformdataé–¢æ•°ã®æ”¹è‰¯
 #	
 #	2002/12/01
-#	URL‚É,‚ª“ü‚é‚Æ“rØ‚ê‚Ä‚µ‚Ü‚¤ƒoƒOC³
-#	“Çê‰æ–Ê‚Ì‰º‚ÌƒŠƒ[ƒhƒ{ƒ^ƒ“‚ğg‚¤‚Æ•W€‰æ–Ê‚É–ß‚éƒoƒOC³
+#	URLã«,ãŒå…¥ã‚‹ã¨é€”åˆ‡ã‚Œã¦ã—ã¾ã†ãƒã‚°ä¿®æ­£
+#	èª­å°‚ç”»é¢ã®ä¸‹ã®ãƒªãƒ­ãƒ¼ãƒ‰ãƒœã‚¿ãƒ³ã‚’ä½¿ã†ã¨æ¨™æº–ç”»é¢ã«æˆ»ã‚‹ãƒã‚°ä¿®æ­£
 # 
 #	2002/12/06
-#   POST ‚ÌƒTƒCƒY§ŒÀ‚ğgetformdataŠÖ”‚É’Ç‰Á
+#   POST ã®ã‚µã‚¤ã‚ºåˆ¶é™ã‚’getformdataé–¢æ•°ã«è¿½åŠ 
 # 
 #	2003/01/01
-#   Ÿ‚Ìƒy[ƒW‚ÌƒoƒOC³
+#   æ¬¡ã®ãƒšãƒ¼ã‚¸ã®ãƒã‚°ä¿®æ­£
 # 
 #	2003/01/25
-#   –¢“ÇƒŠƒ[ƒh‰ü‘P
+#   æœªèª­ãƒªãƒ­ãƒ¼ãƒ‰æ”¹å–„
 
 
 ###############################################################################
-#  İ’è
+#  è¨­å®š
 ###############################################################################
 
-# Œf¦”ÂCGI‚ÌURL
+# æ²ç¤ºæ¿CGIã®URL
 $cgiurl = 'http://strange.kurumi.ne.jp/strangeworld/bbs.cgi';
 
-# jcode.pl‚ÌƒpƒX
+# jcode.plã®ãƒ‘ã‚¹
 $jcode = './jcode.pl';
 
-# gzip‚ÌƒpƒX
-#  (gzipˆ³k“]‘—‹@”\‚ğg—p‚µ‚È‚¢ê‡‚Í‹ó‚Ì‚Ü‚Ü‚É‚µ‚Ä‚¨‚«‚Ü‚·)
+# gzipã®ãƒ‘ã‚¹
+#  (gzipåœ§ç¸®è»¢é€æ©Ÿèƒ½ã‚’ä½¿ç”¨ã—ãªã„å ´åˆã¯ç©ºã®ã¾ã¾ã«ã—ã¦ãŠãã¾ã™)
 $gzip = '/bin/gzip';
 
-# gzipˆ³k‚Ì‰Šú’l
-#   0 : ˆ³k‚µ‚È‚¢
-#   1 : ˆ³k‚·‚é
+# gzipåœ§ç¸®ã®åˆæœŸå€¤
+#   0 : åœ§ç¸®ã—ãªã„
+#   1 : åœ§ç¸®ã™ã‚‹
 $gzipu = 0;
 
-# CGI‚ğİ’u‚·‚éƒzƒXƒgƒAƒhƒŒƒX
+# CGIã‚’è¨­ç½®ã™ã‚‹ãƒ›ã‚¹ãƒˆã‚¢ãƒ‰ãƒ¬ã‚¹
 $bbshost = 'strange.kurumi.ne.jp';
 
-# ƒƒOƒtƒ@ƒCƒ‹–¼
+# ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«å
 $logfilename = './bbs.log';
 
-# ƒJƒEƒ“ƒ^[‚ÌƒXƒ^[ƒg“ú•t
+# ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼ã®ã‚¹ã‚¿ãƒ¼ãƒˆæ—¥ä»˜
 $countdate = '2000/01/01';
 
-# ƒJƒEƒ“ƒ^[‚Ìƒtƒ@ƒCƒ‹–¼‚Ìæ“ª•”•ª
+# ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼ã®ãƒ•ã‚¡ã‚¤ãƒ«åã®å…ˆé ­éƒ¨åˆ†
 $countfile = './count/count';
 
-# ƒJƒEƒ“ƒ^[‚Ì‰ó‚ê‚É‚­‚³ƒŒƒxƒ‹
+# ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼ã®å£Šã‚Œã«ãã•ãƒ¬ãƒ™ãƒ«
 $countlevel = 2;
 
-# ƒŠƒAƒ‹ƒ^ƒCƒ€Q‰ÁÒƒJƒEƒ“ƒg—pƒtƒ@ƒCƒ‹–¼
-#  (ƒŠƒAƒ‹ƒ^ƒCƒ€Q‰ÁÒƒJƒEƒ“ƒg‹@”\g—p‚µ‚È‚¢ê‡‚Í‹ó‚Ì‚Ü‚Ü‚É‚µ‚Ä‚¨‚«‚Ü‚·)
+# ãƒªã‚¢ãƒ«ã‚¿ã‚¤ãƒ å‚åŠ è€…ã‚«ã‚¦ãƒ³ãƒˆç”¨ãƒ•ã‚¡ã‚¤ãƒ«å
+#  (ãƒªã‚¢ãƒ«ã‚¿ã‚¤ãƒ å‚åŠ è€…ã‚«ã‚¦ãƒ³ãƒˆæ©Ÿèƒ½ä½¿ç”¨ã—ãªã„å ´åˆã¯ç©ºã®ã¾ã¾ã«ã—ã¦ãŠãã¾ã™)
 $cntfilename = './bbs.cnt';
 
-# ƒŠƒAƒ‹ƒ^ƒCƒ€Q‰ÁÒƒJƒEƒ“ƒgŠÔŠu (•b)
-# iÅIƒy[ƒWƒrƒ…[‚©‚ç‚±‚ÌŠÔ‚ğ’´‚¦‚½Q‰ÁÒ‚ÍWŒv‚©‚çœŠO‚³‚ê‚Ü‚·j
+# ãƒªã‚¢ãƒ«ã‚¿ã‚¤ãƒ å‚åŠ è€…ã‚«ã‚¦ãƒ³ãƒˆé–“éš” (ç§’)
+# ï¼ˆæœ€çµ‚ãƒšãƒ¼ã‚¸ãƒ“ãƒ¥ãƒ¼ã‹ã‚‰ã“ã®æ™‚é–“ã‚’è¶…ãˆãŸå‚åŠ è€…ã¯é›†è¨ˆã‹ã‚‰é™¤å¤–ã•ã‚Œã¾ã™ï¼‰
 $cntlimit = 300;
 
-# ƒƒbƒZ[ƒW‚Ì•Û‘¶”
+# ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®ä¿å­˜æ•°
 $logsave = 500;
 
-# ‚P‰æ–Ê‚É•\¦‚·‚éƒƒbƒZ[ƒW‚Ì•\¦”
-#  (1`ƒƒbƒZ[ƒW‚Ì•Û‘¶”)
+# ï¼‘ç”»é¢ã«è¡¨ç¤ºã™ã‚‹ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®è¡¨ç¤ºæ•°
+#  (1ï½ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®ä¿å­˜æ•°)
 $msgdisp = 20;
 
-# ƒT[ƒo[İ’uêŠ‚Æ“ú–{‚Æ‚Ì·
-#   “ú–{             : 0
-#   ƒOƒŠƒjƒbƒW•W€ : -9
-#   ƒAƒƒŠƒJ         : -14 (ƒƒVƒ“ƒgƒ“)
-#                    : -20 (ƒ~ƒbƒhƒEƒF[”“‡)
-#   ƒjƒ…[ƒW[ƒ‰ƒ“ƒh : 3
+# ã‚µãƒ¼ãƒãƒ¼è¨­ç½®å ´æ‰€ã¨æ—¥æœ¬ã¨ã®æ™‚å·®
+#   æ—¥æœ¬             : 0
+#   ã‚°ãƒªãƒ‹ãƒƒã‚¸æ¨™æº–æ™‚ : -9
+#   ã‚¢ãƒ¡ãƒªã‚«         : -14 (ãƒ¯ã‚·ãƒ³ãƒˆãƒ³)
+#                    : -20 (ãƒŸãƒƒãƒ‰ã‚¦ã‚§ãƒ¼è«¸å³¶)
+#   ãƒ‹ãƒ¥ãƒ¼ã‚¸ãƒ¼ãƒ©ãƒ³ãƒ‰ : 3
 $difftime = 0;
 
-# Œf¦”Â‚Ì–¼‘O
-$bbstitle = '‚ ‚â‚µ‚¢‚í[‚é‚Ç—‚­‚¸‚Í';
+# æ²ç¤ºæ¿ã®åå‰
+$bbstitle = 'ã‚ã‚„ã—ã„ã‚ãƒ¼ã‚‹ã©ï¼ ããšã¯';
 
-# ”wŒiF
+# èƒŒæ™¯è‰²
 $bgc    = '004040';
 
-# ƒeƒLƒXƒgF
+# ãƒ†ã‚­ã‚¹ãƒˆè‰²
 $textc  = 'ffffff';
 
-# ƒŠƒ“ƒNF
+# ãƒªãƒ³ã‚¯è‰²
 $linkc  = 'eeffee';
 $vlinkc = 'dddddd';
 $alinkc = 'ff0000';
 
-# ‘è–¼‚ÌF
+# é¡Œåã®è‰²
 $subjc  = 'fffffe';
 
-# ˆø—pƒƒbƒZ[ƒW‚ÌF
-# iF‚ğ•Ï‚¦‚È‚¢ê‡‚Í‹ó‚É‚µ‚Ä‚­‚¾‚³‚¢j
+# å¼•ç”¨ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®è‰²
+# ï¼ˆè‰²ã‚’å¤‰ãˆãªã„å ´åˆã¯ç©ºã«ã—ã¦ãã ã•ã„ï¼‰
 $qmsgc  = 'd1d1d1';
 
-# ƒtƒHƒ[“Še‰æ–Êƒ{ƒ^ƒ“‚É•\¦‚·‚é•¶š
-$txtfollow = '¡';
+# ãƒ•ã‚©ãƒ­ãƒ¼æŠ•ç¨¿ç”»é¢ãƒœã‚¿ãƒ³ã«è¡¨ç¤ºã™ã‚‹æ–‡å­—
+$txtfollow = 'â– ';
 
-# “ŠeÒŒŸõƒ{ƒ^ƒ“‚É•\¦‚·‚é•¶š
-$txtauthor = 'š';
+# æŠ•ç¨¿è€…æ¤œç´¢ãƒœã‚¿ãƒ³ã«è¡¨ç¤ºã™ã‚‹æ–‡å­—
+$txtauthor = 'â˜…';
 
-# ƒXƒŒƒbƒh•\¦ƒ{ƒ^ƒ“‚É•\¦‚·‚é•¶š
-$txtthread = 'Ÿ';
+# ã‚¹ãƒ¬ãƒƒãƒ‰è¡¨ç¤ºãƒœã‚¿ãƒ³ã«è¡¨ç¤ºã™ã‚‹æ–‡å­—
+$txtthread = 'â—†';
 
-# ƒtƒHƒ[“Še‚É‘Šè‚Ì“ŠeÒ–¼‚É•t‰Á‚·‚é•¶š
-# iˆê”Ê‚ÌŒf¦”Â‚Å‚Íu‚³‚ñv‚È‚Ç‚ğ•t‚¯‚é‚Æ—Ç‚¢‚Å‚µ‚å‚¤j
+# ãƒ•ã‚©ãƒ­ãƒ¼æŠ•ç¨¿æ™‚ã«ç›¸æ‰‹ã®æŠ•ç¨¿è€…åã«ä»˜åŠ ã™ã‚‹æ–‡å­—
+# ï¼ˆä¸€èˆ¬ã®æ²ç¤ºæ¿ã§ã¯ã€Œã•ã‚“ã€ãªã©ã‚’ä»˜ã‘ã‚‹ã¨è‰¯ã„ã§ã—ã‚‡ã†ï¼‰
 $fsubj = '';
 
-# ‰ß‹ƒƒO•Û‘¶—pƒfƒBƒŒƒNƒgƒŠ‚Ì–¼‘O
+# éå»ãƒ­ã‚°ä¿å­˜ç”¨ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®åå‰
 $oldlogfiledir = './log/';
 
-# ‰ß‹ƒƒO‚Ì•Û‘¶Œ`®
-#   0 : HTMLŒ`® (ƒgƒsƒbƒNˆê——A‰ß‹ƒƒO‚©‚ç‚Ìˆø—p‹@”\‚Íg—p‚Å‚«‚Ü‚¹‚ñ)
-#   1 : ƒoƒCƒiƒŠŒ`®
+# éå»ãƒ­ã‚°ã®ä¿å­˜å½¢å¼
+#   0 : HTMLå½¢å¼ (ãƒˆãƒ”ãƒƒã‚¯ä¸€è¦§ã€éå»ãƒ­ã‚°ã‹ã‚‰ã®å¼•ç”¨æ©Ÿèƒ½ã¯ä½¿ç”¨ã§ãã¾ã›ã‚“)
+#   1 : ãƒã‚¤ãƒŠãƒªå½¢å¼
 $oldlogfmt = 1;
 
-# ‰ß‹ƒƒO‚©‚ç‚ÌƒtƒHƒ[“ŠeE“ŠeÒŒŸõ
-#   0 : •s‰Â
-#   1 : ‰Â (‰ß‹ƒƒO‚Ì•Û‘¶Œ`®‚ªHTMLŒ`®‚Ìê‡‚Íİ’è‚Å‚«‚Ü‚¹‚ñ)
+# éå»ãƒ­ã‚°ã‹ã‚‰ã®ãƒ•ã‚©ãƒ­ãƒ¼æŠ•ç¨¿ãƒ»æŠ•ç¨¿è€…æ¤œç´¢
+#   0 : ä¸å¯
+#   1 : å¯ (éå»ãƒ­ã‚°ã®ä¿å­˜å½¢å¼ãŒHTMLå½¢å¼ã®å ´åˆã¯è¨­å®šã§ãã¾ã›ã‚“)
 $oldlogbtn = 1;
 
-# ‰ß‹ƒƒO‚Ì•Û‘¶•û–@
-#   0 : “ú–ˆ
-#   1 : Œ–ˆ
+# éå»ãƒ­ã‚°ã®ä¿å­˜æ–¹æ³•
+#   0 : æ—¥æ¯
+#   1 : æœˆæ¯
 $oldlogsavesw = 0;
 
-# ‰ß‹ƒƒO‚Ì•Û‘¶“ú”
-#  (‰ß‹ƒƒO‚Ì•Û‘¶•û–@‚ª“ú–ˆ‚Ìê‡‚É‚Ì‚İ—LŒø)
+# éå»ãƒ­ã‚°ã®ä¿å­˜æ—¥æ•°
+#  (éå»ãƒ­ã‚°ã®ä¿å­˜æ–¹æ³•ãŒæ—¥æ¯ã®å ´åˆã«ã®ã¿æœ‰åŠ¹)
 $oldlogsaveday = 5;
 
-# ‰ß‹ƒƒO‚ÌÅ‘åƒtƒ@ƒCƒ‹ƒTƒCƒY
+# éå»ãƒ­ã‚°ã®æœ€å¤§ãƒ•ã‚¡ã‚¤ãƒ«ã‚µã‚¤ã‚º
 $maxoldlogsize = 4 * 1024 * 1024;
 
-# “ñd‘‚«‚İƒ`ƒFƒbƒNŒ”
+# äºŒé‡æ›¸ãè¾¼ã¿ãƒã‚§ãƒƒã‚¯ä»¶æ•°
 $checkcount = 30;
 
-# ‚PƒƒbƒZ[ƒW‚ÌÅ‘åŒ…”
+# ï¼‘ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®æœ€å¤§æ¡æ•°
 $maxmsgcol = 192;
 
-# ‚PƒƒbƒZ[ƒW‚ÌÅ‘ås”
+# ï¼‘ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®æœ€å¤§è¡Œæ•°
 $maxmsgline = 100;
 
-# ‚PƒƒbƒZ[ƒW‚ÌÅ‘åƒTƒCƒY(byte)
+# ï¼‘ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®æœ€å¤§ã‚µã‚¤ã‚º(byte)
 $maxmsgsize = 8400;
 
-# ˜A‘±“Še–h~ƒR[ƒhi•K‚¸•ÏX‚·‚é‚±‚Æj
-$protect_a = 12345678;	# 0ˆÈŠO‚Ì”š‚©‚çn‚Ü‚é8Œ…‚Ì”š
-$protect_b = 45;		# 0ˆÈŠO‚Ì”š‚©‚çn‚Ü‚é2Œ…‚Ì”š
+# é€£ç¶šæŠ•ç¨¿é˜²æ­¢ã‚³ãƒ¼ãƒ‰ï¼ˆå¿…ãšå¤‰æ›´ã™ã‚‹ã“ã¨ï¼‰
+$protect_a = 12345678;	# 0ä»¥å¤–ã®æ•°å­—ã‹ã‚‰å§‹ã¾ã‚‹8æ¡ã®æ•°å­—
+$protect_b = 45;		# 0ä»¥å¤–ã®æ•°å­—ã‹ã‚‰å§‹ã¾ã‚‹2æ¡ã®æ•°å­—
 
-# ©“®ƒŠƒ“ƒN‹@”\‚Ì‰Šú’l
-#   0 : –³Œø
-#   1 : —LŒø
+# è‡ªå‹•ãƒªãƒ³ã‚¯æ©Ÿèƒ½ã®åˆæœŸå€¤
+#   0 : ç„¡åŠ¹
+#   1 : æœ‰åŠ¹
 $autolink = 1;
 
-# ƒtƒHƒ[“Še‰æ–Ê•\¦
-#   0 : V‹KƒEƒBƒ“ƒhƒE‚ğƒI[ƒvƒ“‚µ‚Ä•\¦
-#   1 : “¯ˆê‰æ–Ê‚É•\¦
+# ãƒ•ã‚©ãƒ­ãƒ¼æŠ•ç¨¿ç”»é¢è¡¨ç¤º
+#   0 : æ–°è¦ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’ã‚ªãƒ¼ãƒ—ãƒ³ã—ã¦è¡¨ç¤º
+#   1 : åŒä¸€ç”»é¢ã«è¡¨ç¤º
 $followwin = 0;
 
-# “ŠeÒIPƒAƒhƒŒƒX‚Ì‹L˜^
-#   0 : ‹L˜^‚µ‚È‚¢
-#   1 : “½–¼ƒvƒƒNƒV‚Ì‚İ‹L˜^
-#   2 : ‘S‚Ä‹L˜^
+# æŠ•ç¨¿è€…IPã‚¢ãƒ‰ãƒ¬ã‚¹ã®è¨˜éŒ²
+#   0 : è¨˜éŒ²ã—ãªã„
+#   1 : åŒ¿åãƒ—ãƒ­ã‚¯ã‚·ã®ã¿è¨˜éŒ²
+#   2 : å…¨ã¦è¨˜éŒ²
 $iprec = 0;
 
-# User Agent(ƒuƒ‰ƒEƒU–¼)‚Ì‹L˜^
-#   0 : –³Œø
-#   1 : —LŒø
+# User Agent(ãƒ–ãƒ©ã‚¦ã‚¶å)ã®è¨˜éŒ²
+#   0 : ç„¡åŠ¹
+#   1 : æœ‰åŠ¹
 $uarec = 0;
 
-# “ŠeÒIPƒAƒhƒŒƒX‚Ì•\¦
-# i“ŠeÒIPƒAƒhƒŒƒX‚Ì‹L˜^‚ª—LŒø‚É‚È‚Á‚Ä‚¢‚é•K—v‚ª‚ ‚è‚Ü‚·j
-#   0 : –³Œø
-#   1 : —LŒø
+# æŠ•ç¨¿è€…IPã‚¢ãƒ‰ãƒ¬ã‚¹ã®è¡¨ç¤º
+# ï¼ˆæŠ•ç¨¿è€…IPã‚¢ãƒ‰ãƒ¬ã‚¹ã®è¨˜éŒ²ãŒæœ‰åŠ¹ã«ãªã£ã¦ã„ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™ï¼‰
+#   0 : ç„¡åŠ¹
+#   1 : æœ‰åŠ¹
 $ipprint = 0;
 
-# User Agent(ƒuƒ‰ƒEƒU–¼)‚Ì•\¦
-# iUser Agent‚Ì‹L˜^‚ª—LŒø‚É‚È‚Á‚Ä‚¢‚é•K—v‚ª‚ ‚è‚Ü‚·j
-#   0 : –³Œø
-#   1 : —LŒø
+# User Agent(ãƒ–ãƒ©ã‚¦ã‚¶å)ã®è¡¨ç¤º
+# ï¼ˆUser Agentã®è¨˜éŒ²ãŒæœ‰åŠ¹ã«ãªã£ã¦ã„ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™ï¼‰
+#   0 : ç„¡åŠ¹
+#   1 : æœ‰åŠ¹
 $uaprint = 0;
 
-# “¯ˆêIPƒAƒhƒŒƒX‚©‚ç‚Ì“Še‚ğ‹‘”Û‚·‚éŠÔ (•b)
-# i“ŠeÒIPƒAƒhƒŒƒX‚Ì‹L˜^‚ª—LŒø‚É‚È‚Á‚Ä‚¢‚é•K—v‚ª‚ ‚è‚Ü‚·
-#   0‚Éİ’è‚·‚é‚ÆˆêØ§ŒÀ‚µ‚Ü‚¹‚ñj
+# åŒä¸€IPã‚¢ãƒ‰ãƒ¬ã‚¹ã‹ã‚‰ã®æŠ•ç¨¿ã‚’æ‹’å¦ã™ã‚‹æ™‚é–“ (ç§’)
+# ï¼ˆæŠ•ç¨¿è€…IPã‚¢ãƒ‰ãƒ¬ã‚¹ã®è¨˜éŒ²ãŒæœ‰åŠ¹ã«ãªã£ã¦ã„ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™
+#   0ã«è¨­å®šã™ã‚‹ã¨ä¸€åˆ‡åˆ¶é™ã—ã¾ã›ã‚“ï¼‰
 $sptime = 20;
 
-# Cookie‚É‚æ‚é“ŠeÒ^ƒ[ƒ‹ƒAƒhƒŒƒX‹L‰¯‹@”\‚Ìg—p
-#   0 : –³Œø
-#   1 : —LŒø
+# Cookieã«ã‚ˆã‚‹æŠ•ç¨¿è€…ï¼ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹è¨˜æ†¶æ©Ÿèƒ½ã®ä½¿ç”¨
+#   0 : ç„¡åŠ¹
+#   1 : æœ‰åŠ¹
 $cookie = 0;
 
-# ŠÇ—l‚Ì–¼‘O
-$adminname = '‚­‚¸‚Í';
+# ç®¡ç†äººã®åå‰
+$adminname = 'ããšã¯';
 
-# ŠÇ—l‚Ìƒ[ƒ‹ƒAƒhƒŒƒX
+# ç®¡ç†äººã®ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹
 $adminmail = 'kuzuha@kurumi.ne.jp';
 
-# ŠÇ——pƒpƒXƒ[ƒhiÅ‰‚Í‹ó‚Ì‚Ü‚Ü‚É‚µ‚Ä‚¨‚¢‚Ä‚­‚¾‚³‚¢j
+# ç®¡ç†ç”¨ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ï¼ˆæœ€åˆã¯ç©ºã®ã¾ã¾ã«ã—ã¦ãŠã„ã¦ãã ã•ã„ï¼‰
 $adminpost = '';
 
-# ŠÇ—ƒ‚[ƒhˆÚs—pƒL[ƒ[ƒhi•K‚¸•ÏX‚·‚é‚±‚Æj
+# ç®¡ç†ãƒ¢ãƒ¼ãƒ‰ç§»è¡Œç”¨ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰ï¼ˆå¿…ãšå¤‰æ›´ã™ã‚‹ã“ã¨ï¼‰
 $adminkey = 'adminlogin';
 
-# L•ñº‚ÌURL
+# åºƒå ±å®¤ã®URL
 $infopage = 'http://kuzuha.tripod.co.jp/';
 
-# ƒf[ƒ^‚Ìó“n•û–@
+# ãƒ‡ãƒ¼ã‚¿ã®å—æ¸¡æ–¹æ³•
 $formmethod = 'post';
 
 
 ###############################################################################
-#  ƒVƒXƒeƒ€—pİ’èE•Ï”i“Á‚Éw¦‚ª‚È‚¢ŒÀ‚è•ÏX•s‰Âj
+#  ã‚·ã‚¹ãƒ†ãƒ ç”¨è¨­å®šãƒ»å¤‰æ•°ï¼ˆç‰¹ã«æŒ‡ç¤ºãŒãªã„é™ã‚Šå¤‰æ›´ä¸å¯ï¼‰
 ###############################################################################
 
 $tmpl_msg = <<EOF;
 <!-- \$postid -->
 <FONT size="+1" color="#\$CC{'subj'}"><B>\$title</B></FONT>
-@“ŠeÒF<B>\$user</B>
-@<FONT size="-1">“Še“úF\$wdate\$btn</FONT>
+ã€€æŠ•ç¨¿è€…ï¼š<B>\$user</B>
+ã€€<FONT size="-1">æŠ•ç¨¿æ—¥ï¼š\$wdate\$btn</FONT>
 <BLOCKQUOTE>
 <PRE>
 \$msg
@@ -254,7 +254,7 @@ $S_gzchk[1] = 'checked';
 
 
 ###############################################################################
-#  ƒtƒH[ƒ}ƒbƒg•ÏŠ·
+#  æ™‚åˆ»ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆå¤‰æ›
 ###############################################################################
 
 sub getnowdate {
@@ -263,15 +263,15 @@ sub getnowdate {
 		= localtime ( $_[0] );
 	$year += 1900;
 	$mon++;
-	$nowdate = sprintf ( "%d/%02d/%02d(%s)%02d%02d•ª%02d•b", 
+	$nowdate = sprintf ( "%d/%02d/%02d(%s)%02dæ™‚%02dåˆ†%02dç§’", 
 	  $year, $mon, $mday, 
-	  ( '“ú', 'Œ', '‰Î', '…', '–Ø', '‹à', '“y' )[$wday],
+	  ( 'æ—¥', 'æœˆ', 'ç«', 'æ°´', 'æœ¨', 'é‡‘', 'åœŸ' )[$wday],
 	  $hour, $min, $sec );
 }
 
 
 ###############################################################################
-#  ƒtƒH[ƒ€ƒf[ƒ^æ“¾
+#  ãƒ•ã‚©ãƒ¼ãƒ ãƒ‡ãƒ¼ã‚¿å–å¾—
 ###############################################################################
 
 sub getformdata {
@@ -285,12 +285,12 @@ sub getformdata {
 	}
 	
 	if ($ENV{CONTENT_LENGTH} > $maxmsgsize * 5) {
-	    &prterror ('“Še“à—e‚ª‘å‚«‚·‚¬‚Ü‚·B');
+	    &prterror ('æŠ•ç¨¿å†…å®¹ãŒå¤§ãã™ãã¾ã™ã€‚');
 	}
 
 	if ( $formbuf[0] ) {
 		
-		&prterror ( 'ŒÄ‚Ño‚µŒ³‚ª•s³‚Å‚·B' ) 
+		&prterror ( 'å‘¼ã³å‡ºã—å…ƒãŒä¸æ­£ã§ã™ã€‚' ) 
 		  if ( $ENV{'HTTP_HOST'} && ! ( $ENV{'HTTP_HOST'} =~ /$bbshost/i ) );
 		
 		$referer = $ENV{'HTTP_REFERER'};
@@ -321,12 +321,12 @@ sub getformdata {
 }
 
 ###############################################################################
-#  “ú–{Œê•¶šƒR[ƒh•ÏŠ·
+#  æ—¥æœ¬èªæ–‡å­—ã‚³ãƒ¼ãƒ‰å¤‰æ›
 ###############################################################################
 
 sub jconv {
 	
-	if ( ( $FORM{'k'} ne '‚ ' && $FORM{'v'} ) || $FORM{'j'} ) {
+	if ( ( $FORM{'k'} ne 'ã‚' && $FORM{'v'} ) || $FORM{'j'} ) {
 		require "$jcode";
 		foreach ( keys %FORM ) {
 			&jcode'convert ( \$FORM{$_}, 'sjis' );
@@ -337,7 +337,7 @@ sub jconv {
 
 
 ###############################################################################
-#  ŠÂ‹«•Ï”æ“¾
+#  ç’°å¢ƒå¤‰æ•°å–å¾—
 ###############################################################################
 
 sub getenv {
@@ -421,7 +421,7 @@ sub getenv {
 
 
 ###############################################################################
-#  •¶š—ñ‚ÌƒGƒ“ƒR[ƒh
+#  æ–‡å­—åˆ—ã®ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰
 ###############################################################################
 
 sub escstring {
@@ -436,7 +436,7 @@ sub escstring {
 
 
 ###############################################################################
-#  ƒƒbƒZ[ƒW“Ç‚İ‚İ
+#  ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸èª­ã¿è¾¼ã¿
 ###############################################################################
 
 sub loadmessage {
@@ -450,7 +450,7 @@ sub loadmessage {
 		$openlog = "$oldlogfiledir/$1";
 	}
 	
-	open ( READLOG, "$openlog" ) || &prterror ( 'ƒƒbƒZ[ƒW“Ç‚İ‚İ‚É¸”s‚µ‚Ü‚µ‚½' );
+	open ( READLOG, "$openlog" ) || &prterror ( 'ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸èª­ã¿è¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸ' );
 	eval 'flock ( READLOG, 1 )';
 	seek ( READLOG, 0, 0 );
 	@logdata = <READLOG>;
@@ -460,7 +460,7 @@ sub loadmessage {
 
 
 ###############################################################################
-#  ƒƒbƒZ[ƒW‚PŒæ“¾
+#  ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ï¼‘ä»¶å–å¾—
 ###############################################################################
 
 sub getmessage {
@@ -477,17 +477,17 @@ sub getmessage {
 
 
 ###############################################################################
-#  ƒƒbƒZ[ƒW‚PŒo—Í
+#  ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ï¼‘ä»¶å‡ºåŠ›
 ###############################################################################
 
 sub prtmessage {
 	
-	my $mode = $_[0];	# 0 : Œf¦”Â 1 : ‰ß‹ƒƒO(ƒ{ƒ^ƒ“•\¦‚ ‚è) 2 : ‰ß‹ƒƒO(ƒ{ƒ^ƒ“•\¦‚È‚µ) 3 : ŒŸõ‘‹
+	my $mode = $_[0];	# 0 : æ²ç¤ºæ¿ 1 : éå»ãƒ­ã‚°(ãƒœã‚¿ãƒ³è¡¨ç¤ºã‚ã‚Š) 2 : éå»ãƒ­ã‚°(ãƒœã‚¿ãƒ³è¡¨ç¤ºãªã—) 3 : æ¤œç´¢çª“
 	my $tlog = $_[1];
 	my ( $tag, $refdate, $prtmessage, $btn, $btnfollow, $btnauthor, $btnthread, $newwin,
 	  $envlist, $envaddr, $envua, $envbr );
 	
-	# uQlv
+	# ã€Œå‚è€ƒã€
 	if ( $mode == 0 || $mode == 3 ) {
 		$msg =~ s/<A href=\"m=f\&s=(\d+)\&r=(\S+)\">(.*)<\/A>/<A href=\"$cgiurl\?m=f\&c=$FORM{'c'}&s=$1\&r=$2\">$3<\/A>/i;
 		$msg =~ s/<A href=\"mode=follow\&search=(\d+)\&ref=(\S+)\">(.*)<\/A>/<A href=\"$cgiurl\?m=f\&c=$FORM{'c'}&s=$1\&r=$2\">$3<\/A>/i;
@@ -501,7 +501,7 @@ sub prtmessage {
 		if ( !$followwin ) { $newwin = " target=\"link\""; }
 		else { $newwin = '' };
 		
-		# ƒtƒHƒ[“Šeƒ{ƒ^ƒ“
+		# ãƒ•ã‚©ãƒ­ãƒ¼æŠ•ç¨¿ãƒœã‚¿ãƒ³
 		$btnfollow = "<A href=\"$cgiurl\?m=f\&u=".
 		  &escstring ( $FORM{'u'} ) .
 		  "&d=$FORM{'d'}&p=$toppostid&s=$postid\&c=$FORM{'c'}";
@@ -512,15 +512,15 @@ sub prtmessage {
 		} else {
 			$btnfollow .= "&ff=$tlog\"";
 		}
-		$btnfollow .= "$newwin>$txtfollow</A>@\n";
+		$btnfollow .= "$newwin>$txtfollow</A>ã€€\n";
 		
-		# “ŠeÒŒŸõƒ{ƒ^ƒ“
+		# æŠ•ç¨¿è€…æ¤œç´¢ãƒœã‚¿ãƒ³
 		$btnauthor = "<A href=\"$cgiurl\?m\=s\&s\=".
 		  &escstring ( $user ) .
 		  "\&c=$FORM{'c'}\"".
-		  " target=\"link\">$txtauthor</A>@\n";
+		  " target=\"link\">$txtauthor</A>ã€€\n";
 		
-		# ƒXƒŒƒbƒh•\¦ƒ{ƒ^ƒ“
+		# ã‚¹ãƒ¬ãƒƒãƒ‰è¡¨ç¤ºãƒœã‚¿ãƒ³
 		if ( $thread ) {
 			$btnthread = "<A href=\"$cgiurl\?m\=t\&c=$FORM{'c'}".
 			  "\&s\=$thread\" target=\"link\">$txtthread</A>\n";
@@ -528,17 +528,17 @@ sub prtmessage {
 			$btnthread = '';
 		}
 		
-		$btn = "@\n  $btnfollow  $btnauthor  $btnthread";
+		$btn = "ã€€\n  $btnfollow  $btnauthor  $btnthread";
 	} else {
 		$btn = '';
 	}
 	
-	# ƒ[ƒ‹ƒAƒhƒŒƒX
+	# ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹
 	if ( $mail ) {
 		$user = "<A href=\"mailto\:$mail\">$user<\/A>";
 	}
 	
-	# ˆø—pF•ÏX
+	# å¼•ç”¨è‰²å¤‰æ›´
 	if ( !$mode ) {
 		$msg =~ s/(^|\r)(&gt;[^\r]*)/$1<FONT color=\"#$CC{'qmsgc'}\">$2<\/FONT>/g;
 		$msg =~ s/<\/FONT>\r<FONT color=\"#$CC{'qmsgc'}\">/\r/g;
@@ -547,7 +547,7 @@ sub prtmessage {
 		$msg =~ s/<\/FONT>\r<FONT color=\"#$qmsgc\">/\r/g;
 	}
 	
-	# ŠÂ‹«•Ï”
+	# ç’°å¢ƒå¤‰æ•°
 	if ( $ipprint ) {
 		$envaddr = $phost;
 	} else {
@@ -567,7 +567,7 @@ sub prtmessage {
 		$envlist = '';
 	}
 	
-	# ƒƒbƒZ[ƒW•\¦“à—e’è‹`
+	# ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸è¡¨ç¤ºå†…å®¹å®šç¾©
 	$prtmessage = qq(<A name="$postid"></A>\n$tmpl_msg);
 	$prtmessage =~ s/(\$[A-Za-z0-9\'\{\}]+)/$1/eeg;
 	
@@ -576,7 +576,7 @@ sub prtmessage {
 
 
 ###############################################################################
-#  ‚±‚í‚ê‚É‚­‚¢ƒJƒEƒ“ƒ^[ˆ—
+#  ã“ã‚ã‚Œã«ãã„ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼å‡¦ç†
 ###############################################################################
 
 sub counter {
@@ -601,13 +601,13 @@ sub counter {
 		close ( OUT );
 		return $maxcount;
 	} else {
-		return '<FONT color="red">ƒJƒEƒ“ƒ^[ƒtƒ@ƒCƒ‹‚Ìo—ÍƒGƒ‰[‚Å‚·</FONT>';
+		return '<FONT color="red">ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼ãƒ•ã‚¡ã‚¤ãƒ«ã®å‡ºåŠ›ã‚¨ãƒ©ãƒ¼ã§ã™</FONT>';
 	}
 }
 
 
 ###############################################################################
-#  Q‰ÁÒƒJƒEƒ“ƒg
+#  å‚åŠ è€…ã‚«ã‚¦ãƒ³ãƒˆ
 ###############################################################################
 
 sub mbrcount {
@@ -641,7 +641,7 @@ sub mbrcount {
 					$cadd = 1;
 					$mbrcount++;
 				} elsif ( ( $ctime + $cntlimit ) < $nowtime ) {
-					# œŠO
+					# é™¤å¤–
 					$cntdata[$i] = '';
 				} else {
 					$mbrcount++;
@@ -656,14 +656,14 @@ sub mbrcount {
 			$mbrcount++;
 		}
 		
-		open ( UCNT, ">>$cntfilename" ) || &prterror ( 'Q‰ÁÒƒJƒEƒ“ƒgƒtƒ@ƒCƒ‹‚Ì‘‚«‚İ‚É¸”s‚µ‚Ü‚µ‚½B' );
+		open ( UCNT, ">>$cntfilename" ) || &prterror ( 'å‚åŠ è€…ã‚«ã‚¦ãƒ³ãƒˆãƒ•ã‚¡ã‚¤ãƒ«ã®æ›¸ãè¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸã€‚' );
 		eval 'flock ( UCNT, 2 )';
 		truncate ( UCNT, 0 );
 		seek ( UCNT, 0, 0 );
 		print UCNT @cntdata;
 		close ( UCNT );
 		
-		return "@Œ»İ‚ÌQ‰ÁÒ : $mbrcount–¼ ($cntlimit•bˆÈ“à)";
+		return "ã€€ç¾åœ¨ã®å‚åŠ è€… : $mbrcountå ($cntlimitç§’ä»¥å†…)";
 	} else {
 		return;
 	}
@@ -671,14 +671,14 @@ sub mbrcount {
 
 
 ###############################################################################
-#  HTMLƒwƒbƒ_•”•ª•\¦
+#  HTMLãƒ˜ãƒƒãƒ€éƒ¨åˆ†è¡¨ç¤º
 ###############################################################################
 
 sub prthtmlhead {
 	
 	my $headtitle = $_[0];
 	
-	# ƒwƒbƒ_o—Í
+	# ãƒ˜ãƒƒãƒ€å‡ºåŠ›
 	print "Content-type: text/html\n";
 	if ( $gzip && $gzipu && ( $ENV{'HTTP_ACCEPT_ENCODING'} =~ /gzip/ ) ) {
 		print "Content-encoding: gzip\n\n";
@@ -701,7 +701,7 @@ EOF
 
 
 ###############################################################################
-#  ƒGƒ‰[ƒƒbƒZ[ƒW•\¦
+#  ã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸è¡¨ç¤º
 ###############################################################################
 
 sub prterror {
@@ -715,7 +715,7 @@ Content-type: text/html
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
 <META http-equiv="Pragma" content="no-cache">
-<TITLE>$bbstitle (ƒGƒ‰[)</TITLE>
+<TITLE>$bbstitle (ã‚¨ãƒ©ãƒ¼)</TITLE>
 </HEAD>
 $body
 <H3>$error</H3>
@@ -727,7 +727,7 @@ EOF
 
 
 ###############################################################################
-#  ƒtƒHƒ[‰æ–Ê•\¦
+#  ãƒ•ã‚©ãƒ­ãƒ¼ç”»é¢è¡¨ç¤º
 ###############################################################################
 
 sub prtfollow {
@@ -738,9 +738,9 @@ sub prtfollow {
 	
 	&loadmessage;
 	
-	&prterror ( 'ƒpƒ‰ƒ[ƒ^‚ª‚ ‚è‚Ü‚¹‚ñB' ) if ( !$FORM{'s'} );
+	&prterror ( 'ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãŒã‚ã‚Šã¾ã›ã‚“ã€‚' ) if ( !$FORM{'s'} );
 	
-	&prthtmlhead ( "$bbstitle ƒtƒHƒ[“Še" );
+	&prthtmlhead ( "$bbstitle ãƒ•ã‚©ãƒ­ãƒ¼æŠ•ç¨¿" );
 	print "<HR>\n";
 	
 	foreach ( 0 .. @logdata - 1 ) {
@@ -753,7 +753,7 @@ sub prtfollow {
 	}
 	
 	if ( !$success ) {
-		print "<H3>w’è‚³‚ê‚½ƒƒbƒZ[ƒW‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB</H3></BODY></HTML>";
+		print "<H3>æŒ‡å®šã•ã‚ŒãŸãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚</H3></BODY></HTML>";
 		exit;
 	}
 	
@@ -780,13 +780,13 @@ sub prtfollow {
 	if ( $user =~ /\<A\shref=\"mailto\:.*\"\>(.*)\<\/A\>/ ) {
 		$user = $1;
 	}
-	print "ƒtƒHƒ[‹L–“Še<BR>\n";
-	&prtform ( "„$user$fsubj", "$formmsg\r", '' );
+	print "ãƒ•ã‚©ãƒ­ãƒ¼è¨˜äº‹æŠ•ç¨¿<BR>\n";
+	&prtform ( "ï¼$user$fsubj", "$formmsg\r", '' );
 	
 	print <<EOF;
   <BR>
   <INPUT type="hidden" name="d" value="$FORM{'d'}">
-  <FONT size="-1">URL©“®ƒŠƒ“ƒN <INPUT type="checkbox" name="a" value="checked" $S_alchk[$autolink]></FONT><BR>
+  <FONT size="-1">URLè‡ªå‹•ãƒªãƒ³ã‚¯ <INPUT type="checkbox" name="a" value="checked" $S_alchk[$autolink]></FONT><BR>
   <INPUT type="hidden" name="g" value="$S_gzchk[$gzipu]">
   <INPUT type="hidden" name="p" value="$FORM{'p'}">
   <INPUT type="hidden" name="s" value="$FORM{'s'}">
@@ -804,7 +804,7 @@ EOF
 
 
 ###############################################################################
-#  ƒpƒXƒ[ƒhƒ`ƒFƒbƒN
+#  ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ãƒã‚§ãƒƒã‚¯
 ###############################################################################
 
 sub chkpasswd {
@@ -826,7 +826,7 @@ sub chkpasswd {
 
 
 ###############################################################################
-#  ƒƒbƒZ[ƒWƒ`ƒFƒbƒN
+#  ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒã‚§ãƒƒã‚¯
 ###############################################################################
 
 sub chkmessage {
@@ -834,8 +834,8 @@ sub chkmessage {
 	my ( @hostbin, $admincheck, $adminfname );
 	
 	if ( $referer && ! ( $referer =~ /$cgiurl/i ) ) {
-		&chkerror ( "“Še‰æ–Ê‚Ì‚t‚q‚k‚ª<BR>$cgiurl<BR>" .
-		  'ˆÈŠO‚©‚ç‚Ì“Še‚Í‚Å‚«‚Ü‚¹‚ñB',  3 );
+		&chkerror ( "æŠ•ç¨¿ç”»é¢ã®ï¼µï¼²ï¼¬ãŒ<BR>$cgiurl<BR>" .
+		  'ä»¥å¤–ã‹ã‚‰ã®æŠ•ç¨¿ã¯ã§ãã¾ã›ã‚“ã€‚',  3 );
 	}
 	
 	$i = 0;
@@ -844,14 +844,14 @@ sub chkmessage {
 			$i++;
 		}
 	}
-	if ( $i != 0 ) { &chkerror ( '“Še“à—e‚ÌŒ…”‚ª‘å‚«‚·‚¬‚Ü‚·B', 10 ); }
+	if ( $i != 0 ) { &chkerror ( 'æŠ•ç¨¿å†…å®¹ã®æ¡æ•°ãŒå¤§ãã™ãã¾ã™ã€‚', 10 ); }
 	
 	if ( ( $FORM{'v'} =~ tr/\r/\r/ ) > ( $maxmsgline - 1 ) ) {
-		&chkerror ( '“Še“à—e‚Ìs”‚ª‘å‚«‚·‚¬‚Ü‚·B', 11 );
+		&chkerror ( 'æŠ•ç¨¿å†…å®¹ã®è¡Œæ•°ãŒå¤§ãã™ãã¾ã™ã€‚', 11 );
 	}
 	
 	if ( length ( $FORM{'v'} ) > $maxmsgsize ) {
-		&chkerror ( '“Še“à—e‚ª‘å‚«‚·‚¬‚Ü‚·B', 12 );
+		&chkerror ( 'æŠ•ç¨¿å†…å®¹ãŒå¤§ãã™ãã¾ã™ã€‚', 12 );
 	}
 	
 	if ( $FORM{'pc'} ) {
@@ -868,7 +868,7 @@ sub chkmessage {
 			&chkerror ( '', 32 );
 		}
 		if ( ( $nowtime - $pcheck ) < $S_pstime ) {
-			&chkerror ( '‚à‚¤ˆê“x‚â‚è’¼‚µ‚Ä‰º‚³‚¢B', 30 );
+			&chkerror ( 'ã‚‚ã†ä¸€åº¦ã‚„ã‚Šç›´ã—ã¦ä¸‹ã•ã„ã€‚', 30 );
 		}
 		if ( ( $nowtime - $pcheck ) > $S_pltime ) {
 			&chkerror ( '', 31 );
@@ -880,7 +880,7 @@ sub chkmessage {
 			exit;
 		}
 	} else {
-		&chkerror ( 'ƒtƒH[ƒ€ƒf[ƒ^‚Ìˆê•”‚ÉŒ‡—‚ª‚ ‚è‚Ü‚·B‚à‚¤ˆê“x‚â‚è’¼‚µ‚Ä‰º‚³‚¢B', 33 );
+		&chkerror ( 'ãƒ•ã‚©ãƒ¼ãƒ ãƒ‡ãƒ¼ã‚¿ã®ä¸€éƒ¨ã«æ¬ è½ãŒã‚ã‚Šã¾ã™ã€‚ã‚‚ã†ä¸€åº¦ã‚„ã‚Šç›´ã—ã¦ä¸‹ã•ã„ã€‚', 33 );
 	}
 	
 	if ( $FORM{'i'} =~ / /i ) {
@@ -888,9 +888,9 @@ sub chkmessage {
 	}
 	if ( $FORM{'i'} ) {
 		if ( ! ( $FORM{'i'} =~ /.*\@.*\..*/ ) ) {
-			&chkerror ( 'ƒ[ƒ‹ƒAƒhƒŒƒX‚ª³‚µ‚­“ü—Í‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB', 20 );
+			&chkerror ( 'ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹ãŒæ­£ã—ãå…¥åŠ›ã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚', 20 );
 		} elsif ( $FORM{'i'} =~ /,/ ) {
-			&chkerror ( 'ƒ[ƒ‹ƒAƒhƒŒƒX‚Í•¡”w’è‚Å‚«‚Ü‚¹‚ñB', 21 );
+			&chkerror ( 'ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹ã¯è¤‡æ•°æŒ‡å®šã§ãã¾ã›ã‚“ã€‚', 21 );
 		}
 	}
 	
@@ -899,7 +899,7 @@ sub chkmessage {
 	}
 	
 	if ( !$FORM{'u'} ) {
-		$FORM{'u'} = '@';
+		$FORM{'u'} = 'ã€€';
 	} else {
 		if ( &chkpasswd ) {
 			if ( $FORM{'v'} =~ /^$adminkey/ ) {
@@ -911,16 +911,16 @@ sub chkmessage {
 				$FORM{'i'} = $adminmail;
 			}
 		} elsif ( $FORM{'u'} eq $adminpost ) {
-			$FORM{'u'} = "$adminnameiƒnƒJ[j";
+			$FORM{'u'} = "$adminnameï¼ˆãƒã‚«ãƒ¼ï¼‰";
 		} else {
 			$adminfname = quotemeta $adminname;
 			if ( $FORM{'u'} =~ /$adminfname/i ) {
 				$admincheck = $FORM{'u'};
 				$admincheck =~ s/ //g;
-				$admincheck =~ s/@//g;
+				$admincheck =~ s/ã€€//g;
 				$admincheck =~ s/_//g;
 				if ( $admincheck eq $adminname ) {
-					$FORM{'u'} =~ s/$adminfname/$adminnameiéx‚èj/;
+					$FORM{'u'} =~ s/$adminfname/$adminnameï¼ˆé¨™ã‚Šï¼‰/;
 				}
 			}
 		}
@@ -938,13 +938,13 @@ sub chkmessage {
 	}
 	if ( $FORM{'f'} ) {
 		( $i, $j ) = split ( /:/, $FORM{'f'} );
-		$FORM{'v'} .= "\r\r<A href=\"m=f\&s=$i\&r=$j\">QlF$j</A>";
+		$FORM{'v'} .= "\r\r<A href=\"m=f\&s=$i\&r=$j\">å‚è€ƒï¼š$j</A>";
 	}
 }
 
 
 ###############################################################################
-#  ƒƒbƒZ[ƒWƒ`ƒFƒbƒNƒGƒ‰[ˆ—
+#  ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒã‚§ãƒƒã‚¯ã‚¨ãƒ©ãƒ¼å‡¦ç†
 ###############################################################################
 
 sub chkerror {
@@ -957,14 +957,14 @@ sub chkerror {
 
 
 ###############################################################################
-#  ƒƒbƒZ[ƒW“o˜^
+#  ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ç™»éŒ²
 ###############################################################################
 
 sub putmessage {
 	
 	my $oldlogext;
 	
-	open ( FLOG, "+<$logfilename" ) || &prterror ( 'ƒƒbƒZ[ƒW“Ç‚İ‚İ‚É¸”s‚µ‚Ü‚µ‚½' );
+	open ( FLOG, "+<$logfilename" ) || &prterror ( 'ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸èª­ã¿è¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸ' );
 	eval 'flock ( FLOG, 2 )';
 	seek ( FLOG, 0, 0 );
 	@logdata = <FLOG>;
@@ -1000,7 +1000,7 @@ sub putmessage {
 		
 		&getnowdate ( $nowtime );
 		
-		# ‰ß‹ƒƒOo—Í
+		# éå»ãƒ­ã‚°å‡ºåŠ›
 		if ( $oldlogfiledir ) {
 			
 			if ( !$oldlogfmt ) {
@@ -1017,7 +1017,7 @@ sub putmessage {
 				  $oldlogfiledir, $year, $mon );
 			}
 			
-			open ( CLOG, ">>$oldlogfilename" ) || &prterror ( '‰ß‹ƒƒOo—Í‚É¸”s‚µ‚Ü‚µ‚½' );
+			open ( CLOG, ">>$oldlogfilename" ) || &prterror ( 'éå»ãƒ­ã‚°å‡ºåŠ›ã«å¤±æ•—ã—ã¾ã—ãŸ' );
 			eval 'flock ( CLOG, 2 )';
 			
 			$oldstream = select ( CLOG );
@@ -1077,7 +1077,7 @@ EOF
 
 
 ###############################################################################
-#  Cookieæ“¾
+#  Cookieå–å¾—
 ###############################################################################
 
 sub getcookie {
@@ -1095,7 +1095,7 @@ sub getcookie {
 
 
 ###############################################################################
-#  Cookie‘—M
+#  Cookieé€ä¿¡
 ###############################################################################
 
 sub putcookie {
@@ -1116,7 +1116,7 @@ sub putcookie {
 
 
 ###############################################################################
-#  ƒvƒƒeƒNƒgƒR[ƒh¶¬
+#  ãƒ—ãƒ­ãƒ†ã‚¯ãƒˆã‚³ãƒ¼ãƒ‰ç”Ÿæˆ
 ###############################################################################
 
 sub pcode {
@@ -1146,7 +1146,7 @@ sub pcode {
 
 
 ###############################################################################
-#  ƒtƒH[ƒ€•”•ª•\¦
+#  ãƒ•ã‚©ãƒ¼ãƒ éƒ¨åˆ†è¡¨ç¤º
 ###############################################################################
 
 sub prtform {
@@ -1156,90 +1156,90 @@ sub prtform {
 	my $dlink = $_[2];
 	my ( $bbslink, $gzipchk, $counter, $mbrcount );
 	
-	# ƒvƒƒeƒNƒgƒR[ƒh¶¬
+	# ãƒ—ãƒ­ãƒ†ã‚¯ãƒˆã‚³ãƒ¼ãƒ‰ç”Ÿæˆ
 	my $ptext = &pcode;
 	
-	# ƒJƒEƒ“ƒ^
+	# ã‚«ã‚¦ãƒ³ã‚¿
 	$counter = &counter;
 	$mbrcount = &mbrcount;
 	
 	if ( $gzip ) {
-		$gzipchk = qq#  @<FONT size="-1">gzipˆ³k“]‘— <INPUT type="checkbox" name="g" value="checked" $S_gzchk[$gzipu]></FONT>#;
+		$gzipchk = qq#  ã€€<FONT size="-1">gzipåœ§ç¸®è»¢é€ <INPUT type="checkbox" name="g" value="checked" $S_gzchk[$gzipu]></FONT>#;
 	} else {
 		$gzipchk = '';
 	}
 
 	if ( $FORM{'m'} eq 'o' || $FORM{'m'} eq 'op' || $FORM{'m'} eq 'on') {	
 		
-		# ƒƒO“Ç‚İê—pƒtƒH[ƒ€
-		$bbslink = qq#<A href="$cgiurl?c=$FORM{'c'}">•W€‰æ–Ê</A>#;
+		# ãƒ­ã‚°èª­ã¿å°‚ç”¨ãƒ•ã‚©ãƒ¼ãƒ 
+		$bbslink = qq#<A href="$cgiurl?c=$FORM{'c'}">æ¨™æº–ç”»é¢</A>#;
 		print <<EOF;
 <FORM method="$formmethod" action="$cgiurl">
   <INPUT type="hidden" name="m" value="op">
-  <INPUT type="hidden" name="k" value="‚ ">
+  <INPUT type="hidden" name="k" value="ã‚">
   <INPUT type="hidden" name="c" value="$FORM{'c'}">
-  <P><FONT size="-1">•\\¦Œ” <INPUT size="6" type="text" name="d" value="$FORM{'d'}">
+  <P><FONT size="-1">è¡¨\ç¤ºä»¶æ•° <INPUT size="6" type="text" name="d" value="$FORM{'d'}">
 $gzipchk
-  @<FONT size="-1">URL©“®ƒŠƒ“ƒN <INPUT type="checkbox" name="a" value="checked" $S_alchk[$autolink]></FONT>
-  @<INPUT type="submit" name="setup" value="‚»‚Ì‘¼‚Ìİ’è"></FONT></P>
-  <FONT size="-1">$countdate ‚©‚ç $counteri‚±‚í‚ê‚É‚­‚³ƒŒƒxƒ‹$countlevelj$mbrcount</FONT>
+  ã€€<FONT size="-1">URLè‡ªå‹•ãƒªãƒ³ã‚¯ <INPUT type="checkbox" name="a" value="checked" $S_alchk[$autolink]></FONT>
+  ã€€<INPUT type="submit" name="setup" value="ãã®ä»–ã®è¨­å®š"></FONT></P>
+  <FONT size="-1">$countdate ã‹ã‚‰ $counterï¼ˆã“ã‚ã‚Œã«ãã•ãƒ¬ãƒ™ãƒ«$countlevelï¼‰$mbrcount</FONT>
   <HR>
   <FONT size="-1">| 
-  <A href="$infopage">L•ñº</A> | 
-  <A href="$cgiurl?m=g&c=$FORM{'c'}">Å‹ß‚Ì‰ß‹ƒƒO</A> |
+  <A href="$infopage">åºƒå ±å®¤</A> | 
+  <A href="$cgiurl?m=g&c=$FORM{'c'}">æœ€è¿‘ã®éå»ãƒ­ã‚°</A> |
   $bbslink |
   </FONT>
   <HR>
-  <FONT size="-1">$txtfollow : ƒtƒHƒ[“Še‰æ–Ê•\\¦ @ $txtauthor : “ŠeÒŒŸõ•\\¦ @ $txtthread : ƒXƒŒƒbƒh•\\¦
-  @@@Å‘å“o˜^Œ” : $logsaveŒ</FONT>
+  <FONT size="-1">$txtfollow : ãƒ•ã‚©ãƒ­ãƒ¼æŠ•ç¨¿ç”»é¢è¡¨\ç¤º ã€€ $txtauthor : æŠ•ç¨¿è€…æ¤œç´¢è¡¨\ç¤º ã€€ $txtthread : ã‚¹ãƒ¬ãƒƒãƒ‰è¡¨\ç¤º
+  ã€€ã€€ã€€æœ€å¤§ç™»éŒ²ä»¶æ•° : $logsaveä»¶</FONT>
   <HR>
-  <FONT size="-1"><INPUT type="submit" name="reload" value="ƒŠƒ[ƒh"></FONT>
-@<FONT size="-1"><INPUT type="submit" name="midokureload" value="–¢“ÇƒŠƒ[ƒh"></FONT>
+  <FONT size="-1"><INPUT type="submit" name="reload" value="ãƒªãƒ­ãƒ¼ãƒ‰"></FONT>
+ã€€<FONT size="-1"><INPUT type="submit" name="midokureload" value="æœªèª­ãƒªãƒ­ãƒ¼ãƒ‰"></FONT>
   <INPUT type="hidden" name="p" value="$toppostid">
 </FORM>
 EOF
 		
 	} else {
 		
-		# •W€“ŠeƒtƒH[ƒ€
-		$bbslink = qq#<A href="$cgiurl?m=o&c=$FORM{'c'}">ƒƒO“Ç‚İê—p‰æ–Ê</A>#;
+		# æ¨™æº–æŠ•ç¨¿ãƒ•ã‚©ãƒ¼ãƒ 
+		$bbslink = qq#<A href="$cgiurl?m=o&c=$FORM{'c'}">ãƒ­ã‚°èª­ã¿å°‚ç”¨ç”»é¢</A>#;
 		print <<EOF;
 <FORM method="$formmethod" action="$cgiurl">
   <INPUT type="hidden" name="m" value="p">
-  “ŠeÒ <INPUT size="20" type="text" name="u" maxlength="30" value="$FORM{'u'}"><BR>
-  ƒ[ƒ‹ <INPUT size="30" type="text" name="i" maxlength="255" value="$FORM{'i'}"><BR>
-  ‘è–¼ @<INPUT size="30" type="text" name="t" maxlength="40" value="$dtitle">
-  <INPUT type="submit" name="post" value="“Še^ƒŠƒ[ƒh"> <INPUT type="reset" value="Á‚·"><BR> <BR>
-  “à—e <FONT size="-1"><I>
-  i“K“–‚É‰üs‚ğ“ü‚ê‚Ä‚­‚¾‚³‚¢Bƒ^ƒO‚Íg‚¦‚Ü‚¹‚ñB“à—e‚ğ‘‚©‚¸‚É“Šeƒ{ƒ^ƒ“‚ğ‰Ÿ‚·‚ÆƒŠƒ[ƒh‚É‚È‚è‚Ü‚·j
+  æŠ•ç¨¿è€… <INPUT size="20" type="text" name="u" maxlength="30" value="$FORM{'u'}"><BR>
+  ãƒ¡ãƒ¼ãƒ« <INPUT size="30" type="text" name="i" maxlength="255" value="$FORM{'i'}"><BR>
+  é¡Œå ã€€<INPUT size="30" type="text" name="t" maxlength="40" value="$dtitle">
+  <INPUT type="submit" name="post" value="æŠ•ç¨¿ï¼ãƒªãƒ­ãƒ¼ãƒ‰"> <INPUT type="reset" value="æ¶ˆã™"><BR> <BR>
+  å†…å®¹ <FONT size="-1"><I>
+  ï¼ˆé©å½“ã«æ”¹è¡Œã‚’å…¥ã‚Œã¦ãã ã•ã„ã€‚ã‚¿ã‚°ã¯ä½¿ãˆã¾ã›ã‚“ã€‚å†…å®¹ã‚’æ›¸ã‹ãšã«æŠ•ç¨¿ãƒœã‚¿ãƒ³ã‚’æŠ¼ã™ã¨ãƒªãƒ­ãƒ¼ãƒ‰ã«ãªã‚Šã¾ã™ï¼‰
   </I></FONT><BR>
   <TEXTAREA rows="5" cols="70" name="v">$dmsg</TEXTAREA><BR> <BR>
-  URL <FONT size="-1"><I>iƒŠƒ“ƒN‚ğ“ü‚ê‚½‚¢ê‡‚Í‚±‚±‚É‹L“ü‚µ‚Ü‚·j</I></FONT><BR>
+  URL <FONT size="-1"><I>ï¼ˆãƒªãƒ³ã‚¯ã‚’å…¥ã‚ŒãŸã„å ´åˆã¯ã“ã“ã«è¨˜å…¥ã—ã¾ã™ï¼‰</I></FONT><BR>
   <INPUT size="70" type="text" name="l" maxlength="255" value="$dlink">
   $ptext
-  <INPUT type="hidden" name="k" value="‚ ">
+  <INPUT type="hidden" name="k" value="ã‚">
   <INPUT type="hidden" name="c" value="$FORM{'c'}">
 EOF
 		
 		if ( $FORM{'m'} ne 'f' && !$FORM{'f'} ) {
 			print <<EOF;
-  <P><FONT size="-1">•\\¦Œ” <INPUT size="6" type="text" name="d" value="$FORM{'d'}">
+  <P><FONT size="-1">è¡¨\ç¤ºä»¶æ•° <INPUT size="6" type="text" name="d" value="$FORM{'d'}">
   $gzipchk
-  @<FONT size="-1">URL©“®ƒŠƒ“ƒN <INPUT type="checkbox" name="a" value="checked" $S_alchk[$autolink]></FONT>
-  @<INPUT type="submit" name="setup" value="‚»‚Ì‘¼‚Ìİ’è"></FONT></P>
-  <FONT size="-1">$countdate ‚©‚ç $counteri‚±‚í‚ê‚É‚­‚³ƒŒƒxƒ‹$countlevelj$mbrcount</FONT>
+  ã€€<FONT size="-1">URLè‡ªå‹•ãƒªãƒ³ã‚¯ <INPUT type="checkbox" name="a" value="checked" $S_alchk[$autolink]></FONT>
+  ã€€<INPUT type="submit" name="setup" value="ãã®ä»–ã®è¨­å®š"></FONT></P>
+  <FONT size="-1">$countdate ã‹ã‚‰ $counterï¼ˆã“ã‚ã‚Œã«ãã•ãƒ¬ãƒ™ãƒ«$countlevelï¼‰$mbrcount</FONT>
   <HR>
   <FONT size="-1">| 
-  <A href="$infopage">L•ñº</A> | 
-  <A href="$cgiurl?m=g&c=$FORM{'c'}">Å‹ß‚Ì‰ß‹ƒƒO</A> |
+  <A href="$infopage">åºƒå ±å®¤</A> | 
+  <A href="$cgiurl?m=g&c=$FORM{'c'}">æœ€è¿‘ã®éå»ãƒ­ã‚°</A> |
   $bbslink |
   </FONT>
   <HR>
-  <FONT size="-1">$txtfollow : ƒtƒHƒ[“Še‰æ–Ê•\\¦ @ $txtauthor : “ŠeÒŒŸõ•\\¦ @ $txtthread : ƒXƒŒƒbƒh•\\¦
-  @@@Å‘å“o˜^Œ” : $logsaveŒ</FONT>
+  <FONT size="-1">$txtfollow : ãƒ•ã‚©ãƒ­ãƒ¼æŠ•ç¨¿ç”»é¢è¡¨\ç¤º ã€€ $txtauthor : æŠ•ç¨¿è€…æ¤œç´¢è¡¨\ç¤º ã€€ $txtthread : ã‚¹ãƒ¬ãƒƒãƒ‰è¡¨\ç¤º
+  ã€€ã€€ã€€æœ€å¤§ç™»éŒ²ä»¶æ•° : $logsaveä»¶</FONT>
   <HR>
-  <FONT size="-1"><INPUT type="submit" name="reload" value="ƒŠƒ[ƒh"></FONT>
-@<FONT size="-1"><INPUT type="submit" name="midokureload" value="–¢“ÇƒŠƒ[ƒh"></FONT>
+  <FONT size="-1"><INPUT type="submit" name="reload" value="ãƒªãƒ­ãƒ¼ãƒ‰"></FONT>
+ã€€<FONT size="-1"><INPUT type="submit" name="midokureload" value="æœªèª­ãƒªãƒ­ãƒ¼ãƒ‰"></FONT>
   <INPUT type="hidden" name="p" value="$toppostid">
 </FORM>
 EOF
@@ -1249,7 +1249,7 @@ EOF
 
 
 ###############################################################################
-#  ‰æ–Ê•\¦
+#  ç”»é¢è¡¨ç¤º
 ###############################################################################
 
 sub prtmain {
@@ -1263,17 +1263,17 @@ sub prtmain {
 	
 	$prtmessage = '';
 	
-	# ÅV‚ÌPOSTID‚ğæ“¾i‚OŒƒŠƒ[ƒh—pj
+	# æœ€æ–°ã®POSTIDã‚’å–å¾—ï¼ˆï¼ä»¶ãƒªãƒ­ãƒ¼ãƒ‰ç”¨ï¼‰
 	$logdata[0] =~ /^.*,(.*),.*,.*,.*,.*,.*,.*,.*,.*/;
 	$toppostid = $1;
-	if ($FORM{m} =~ /n/) {		# Ÿ‚Ìƒy[ƒW‚ª‰Ÿ‚³‚ê‚½
-		# V’…“Še‚ª‚ ‚Á‚½‚çŠJnƒ|ƒCƒ“ƒ^‚ğ‚¸‚ç‚·
+	if ($FORM{m} =~ /n/) {		# æ¬¡ã®ãƒšãƒ¼ã‚¸ãŒæŠ¼ã•ã‚ŒãŸ
+		# æ–°ç€æŠ•ç¨¿ãŒã‚ã£ãŸã‚‰é–‹å§‹ãƒã‚¤ãƒ³ã‚¿ã‚’ãšã‚‰ã™
 		$bmsg += ($msg_diff = $toppostid - $FORM{p}) if ($toppostid > $FORM{p});
-		# –¢“Çƒ|ƒCƒ“ƒ^‚ÍXV‚³‚¹‚È‚¢
+		# æœªèª­ãƒã‚¤ãƒ³ã‚¿ã¯æ›´æ–°ã•ã›ãªã„
 		$toppostid = $FORM{p};
 	}
 	
-	# ƒƒbƒZ[ƒW•\¦Œ”İ’è
+	# ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸è¡¨ç¤ºä»¶æ•°è¨­å®š
 	if ( $FORM{'d'} == 0 or $FORM{'midokureload'}) {
 		$dispcount = $toppostid - $FORM{'p'};
 		$cntnext = $msgdisp;
@@ -1282,7 +1282,7 @@ sub prtmain {
 		$cntnext = $FORM{'d'};
 	}
 	
-	# •\¦ƒƒbƒZ[ƒWì¬
+	# è¡¨ç¤ºãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ä½œæˆ
 	$msgtop = $bmsg + $dispcount;
 	$msgtop = @logdata if ( $msgtop > @logdata );
 	$j = 0;
@@ -1309,9 +1309,9 @@ sub prtmain {
 	}
 	$bmsg++;
 	if ( $j > 0 ) {
-		$msgmore = "ˆÈã‚ÍAŒ»İ“o˜^‚³‚ê‚Ä‚¢‚éV’…‡$bmsg”Ô–Ú‚©‚ç$msgtop”Ô–Ú‚Ü‚Å‚Ì‹L–‚Å‚·B"
+		$msgmore = "ä»¥ä¸Šã¯ã€ç¾åœ¨ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹æ–°ç€é †$bmsgç•ªç›®ã‹ã‚‰$msgtopç•ªç›®ã¾ã§ã®è¨˜äº‹ã§ã™ã€‚"
 	} else {
-		$msgmore = '–¢“ÇƒƒbƒZ[ƒW‚Í‚ ‚è‚Ü‚¹‚ñB';
+		$msgmore = 'æœªèª­ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚';
 	}
 	if ( $logdata[$msgtop] && $j > 0 ) {
 		my ($n_mode, $mode);
@@ -1335,7 +1335,7 @@ sub prtmain {
         <INPUT type="hidden" name="p" value="$toppostid">
         <INPUT type="hidden" name="d" value="$cntnext">
         <INPUT type="hidden" name="c" value="$FORM{'c'}">
-        <INPUT type="submit" name="pnext" value="Ÿ‚Ìƒy[ƒW">
+        <INPUT type="submit" name="pnext" value="æ¬¡ã®ãƒšãƒ¼ã‚¸">
       </FORM>
     </TD>
     <TD>
@@ -1344,7 +1344,7 @@ sub prtmain {
         <INPUT type="hidden" name="p" value="$toppostid">
         <INPUT type="hidden" name="d" value="$FORM{'d'}">
         <INPUT type="hidden" name="c" value="$FORM{'c'}"><INPUT type="hidden" name="m" value="$mode">
-        <INPUT type="submit" name="reload" value="ƒŠƒ[ƒh">
+        <INPUT type="submit" name="reload" value="ãƒªãƒ­ãƒ¼ãƒ‰">
       </FORM>
     </TD>
     <TD>
@@ -1353,24 +1353,24 @@ sub prtmain {
         <INPUT type="hidden" name="p" value="$toppostid">
         <INPUT type="hidden" name="d" value="$FORM{'d'}">
         <INPUT type="hidden" name="c" value="$FORM{'c'}"><INPUT type="hidden" name="m" value="$mode">
-        <INPUT type="submit" name="midokureload" value="–¢“ÇƒŠƒ[ƒh">
+        <INPUT type="submit" name="midokureload" value="æœªèª­ãƒªãƒ­ãƒ¼ãƒ‰">
       </FORM>
     </TD>
   </TR>
 </TABLE>
 EOF
 	} else {
-		$msgmore .= '‚±‚êˆÈ‰º‚Ì‹L–‚Í‚ ‚è‚Ü‚¹‚ñB';
+		$msgmore .= 'ã“ã‚Œä»¥ä¸‹ã®è¨˜äº‹ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚';
 		$msgnext = '';
 	}
 	
-	# ƒƒCƒ“o—Í
+	# ãƒ¡ã‚¤ãƒ³å‡ºåŠ›
 	&prthtmlhead ( "$bbstitle" );
 	print <<EOF;
 <P>
   <B><FONT size="+1">$bbstitle</FONT></B>
-  <FONT size="-1"><A href="$infopage">L•ñº</A></FONT>
-  <FONT size="-1"><A href="mailto:$adminmail">˜A—æ</A></FONT>
+  <FONT size="-1"><A href="$infopage">åºƒå ±å®¤</A></FONT>
+  <FONT size="-1"><A href="mailto:$adminmail">é€£çµ¡å…ˆ</A></FONT>
 </P>
 EOF
 	
@@ -1387,7 +1387,7 @@ $msgnext
 <HR>
 
 <P align="right">
-<FONT size="-1"><A href="http://kuzuha.tripod.co.jp/">‚­‚¸‚Í‚·‚­‚è‚Õ‚Æ</A> + <a href="http://www.strangeworld.cx/cgi-bin/remix/bbs.cgi?area=soft41">—‚­‚¸‚Í–G‚¦ ver1.1.1</a></FONT>
+<FONT size="-1"><A href="http://kuzuha.tripod.co.jp/">ããšã¯ã™ãã‚Šã·ã¨</A> + <a href="http://www.strangeworld.cx/cgi-bin/remix/bbs.cgi?area=soft41">ï¼ ããšã¯èŒãˆ ver1.1.1</a></FONT>
 </P>
 
 </BODY>
@@ -1397,7 +1397,7 @@ EOF
 
 
 ###############################################################################
-#  ŒÂl—pİ’è”½‰f
+#  å€‹äººç”¨è¨­å®šåæ˜ 
 ###############################################################################
 
 sub refcustom {
@@ -1412,8 +1412,8 @@ sub refcustom {
 			$CC{'qmsgc'} = $5;
 			$CC{'subj'} = $CC{'text'};
 			$i = hex ( $6 );
-			$j = hex ( $7 );	# —\”õ
-			$k = hex ( $8 );	# —\”õ
+			$j = hex ( $7 );	# äºˆå‚™
+			$k = hex ( $8 );	# äºˆå‚™
 		} elsif ( length ( $FORM{'c'} ) == 3  ) {
 			$FORM{'c'} =~ /^(\w)(\w)(\w)$/;
 			$CC{'text'} = $textc;
@@ -1423,8 +1423,8 @@ sub refcustom {
 			$CC{'qmsgc'} = $qmsgc;
 			$CC{'subj'} = $subjc;
 			$i = hex ( $1 );
-			$j = hex ( $2 );	# —\”õ
-			$k = hex ( $3 );	# —\”õ
+			$j = hex ( $2 );	# äºˆå‚™
+			$k = hex ( $3 );	# äºˆå‚™
 		}
 		$gzipu = int ( $i / 8 );
 		$reltype = int ( $i % 8 / 4 );
@@ -1462,7 +1462,7 @@ sub refcustom {
 
 
 ###############################################################################
-#  ƒƒCƒ“
+#  ãƒ¡ã‚¤ãƒ³
 ###############################################################################
 
 &getformdata;
@@ -1477,7 +1477,7 @@ if ( $FORM{'m'} eq 'c' ) {
 	exit;
 }
 
-# ŒÂl—pİ’è”½‰f
+# å€‹äººç”¨è¨­å®šåæ˜ 
 &refcustom;
 $body = qq(<BODY bgcolor="#$CC{'bg'}" text="#$CC{'text'}" link="#$CC{'link'}" vlink="#$CC{'vlink'}" alink="#$alinkc">);
 
@@ -1488,14 +1488,14 @@ if ( $FORM{'m'} eq 'g' ) {
 	exit;
 }
 
-# ƒgƒsƒbƒNˆê——
+# ãƒˆãƒ”ãƒƒã‚¯ä¸€è¦§
 if ( $FORM{'m'} eq 'l' ) {
 	require './sub/bbstopic.pl';
 	&lsttopic;
 	exit;
 }
 
-# ŠÇ—ƒ‚[ƒh
+# ç®¡ç†ãƒ¢ãƒ¼ãƒ‰
 if ( $FORM{'ad'} ) {
 	require './sub/bbsadmin.pl';
 	&adminmain;
@@ -1507,14 +1507,14 @@ if ( !$adminpost ) {
 	exit;
 }
 
-# ŒÂl—pİ’è
+# å€‹äººç”¨è¨­å®š
 if ( $FORM{'setup'} ) {
 	require './sub/bbscust.pl';
 	&prtcustom;
 	exit;
 }
 
-# •\¦Œ”İ’è
+# è¡¨ç¤ºä»¶æ•°è¨­å®š
 if ( $FORM{'d'} ne '' ) {
 	if ( $FORM{'d'} > $logsave ) {
 		$FORM{'d'} = $logsave;
@@ -1533,9 +1533,9 @@ if ( $FORM{'m'} eq 'p' && $FORM{'v'} && !$FORM{'reload'} ) {
 		$posterr = 255;
 	}
 	if ( $FORM{'ac'} || ( $FORM{'f'} && !$followwin ) ) {
-		&prthtmlhead ( "$bbstitle ‘‚«‚İŠ®—¹" );
+		&prthtmlhead ( "$bbstitle æ›¸ãè¾¼ã¿å®Œäº†" );
 		print <<EOF;
-<H1>‘‚«‚İŠ®—¹</H1>
+<H1>æ›¸ãè¾¼ã¿å®Œäº†</H1>
 </BODY>
 </HTML>
 EOF
