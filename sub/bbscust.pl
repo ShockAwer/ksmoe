@@ -16,29 +16,29 @@ sub prtcustom {
 	$follow[$followwin] = 'checked';
 	$reload[$reltype] = 'checked';
 	
-	&prthtmlhead ( "$bbstitle 個人用環境設定" );
+	&prthtmlhead ( "$bbstitle Personal Settings" );
 	print <<EOF;
-<H3>$bbstitle 個人用環境設定</H3><BR>
+<H3>$bbstitle Personal Settings</H3><BR>
 <FORM method="post" action="$cgiurl">
   <INPUT type="hidden" name="m" value="c">
   <INPUT type="hidden" name="nm" value="$FORM{'m'}">
   <UL>
-    <LI><STRONG>表\示設定</STRONG><BR> <BR>
+    <LI><STRONG>Table Settings</STRONG><BR> <BR>
     <TABLE border="0" cellspacing="0" cellpadding="0">
       <TR>
-        <TD>文字色　　　</TD>
+        <TD>Text color　　　</TD>
         <TD><INPUT type="text" name="tc" size="7" value="$CC{'text'}"></TD>
-        <TD>　背景色</TD>
+        <TD>　Background color</TD>
         <TD><INPUT type="text" name="bc" size="7" value="$CC{'bg'}"></TD>
       </TR>
       <TR>
-        <TD>リンク色</TD>
+        <TD>Link color</TD>
         <TD><INPUT type="text" name="lc" size="7" value="$CC{'link'}"></TD>
-        <TD>　訪問済リンク色 </TD>
+        <TD>　V-Link color </TD>
         <TD><INPUT type="text" name="vc" size="7" value="$CC{'vlink'}"></TD>
       </TR>
       <TR>
-        <TD>引用色</TD>
+        <TD>Quoted text color (greentext)</TD>
         <TD><INPUT type="text" name="qc" size="7" value="$CC{'qmsgc'}"></TD>
         <TD>　</TD>
         <TD>　</TD>
@@ -46,27 +46,27 @@ sub prtcustom {
     </TABLE>
   </UL>
   <UL>
-    <LI><STRONG>付加機能\設定</STRONG><BR> <BR>
-    gzip圧縮転送 <INPUT type="checkbox" name="g" value="checked" $S_gzchk[$gzipu]><BR>
-    URL自動リンク <INPUT type="checkbox" name="a" value="checked" $S_alchk[$autolink]><BR>
+    <LI><STRONG>Additional Function Settings</STRONG><BR> <BR>
+    G-zip compressed transfer <INPUT type="checkbox" name="g" value="checked" $S_gzchk[$gzipu]><BR>
+    Automatic URL linking <INPUT type="checkbox" name="a" value="checked" $S_alchk[$autolink]><BR>
   </UL>
   <UL>
-    <LI><STRONG>フォロー画面の表\示方法</STRONG><BR> <BR>
-    <INPUT type="radio" name="fw" value="0" $follow[0]>新規ウィンドウを開いて表\示<BR>
-    <INPUT type="radio" name="fw" value="1" $follow[1]>新規ウィンドウを開かずに表\示<BR>
+    <LI><STRONG>Follow-up screen table method</STRONG><BR> <BR>
+    <INPUT type="radio" name="fw" value="0" $follow[0]>Open a new window and display the table<BR>
+    <INPUT type="radio" name="fw" value="1" $follow[1]>Displaying a table without opening a new window<BR>
   </UL>
   <UL>
-    <LI><STRONG>０件リロード時のメッセージの表\示方法</STRONG><BR> <BR>
-    <INPUT type="radio" name="rt" value="0" $reload[0]>標準（投稿時刻降順表\示）<BR>
-    <INPUT type="radio" name="rt" value="1" $reload[1]>反転（投稿時刻昇順表\示）<BR>
+    <LI><STRONG>How to display messages when reloading nothing</STRONG><BR> <BR>
+    <INPUT type="radio" name="rt" value="0" $reload[0]>Standard（Posting time descending table\示）<BR>
+    <INPUT type="radio" name="rt" value="1" $reload[1]>Reversed（Posting time ascending table）<BR>
   </UL>
   <BR>
-  「登録」を押した後に表\示されるURLをブックマークに登録しましょう。<BR>
-  上記の設定で掲示板を訪問することができます。<BR> <BR>
-  <INPUT type="submit" value="登録">
-  <INPUT type="reset" value="元に戻す">
-  <INPUT type="submit" name="cr" value="規定値に戻す">
-  <INPUT type="submit" name="cdc" value="Cookie消去">
+  Bookmark the URL displayed after pressing "Register". <BR>
+  You can visit the bulletin board with the above settings. <BR> <BR>
+  <INPUT type="submit" value="Register">
+  <INPUT type="reset" value="Reset">
+  <INPUT type="submit" name="cr" value="Return to default value">
+  <INPUT type="submit" name="cdc" value="Cookie Erasure">
 </FORM>
 </BODY>
 </HTML>
