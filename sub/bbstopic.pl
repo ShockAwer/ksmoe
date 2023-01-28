@@ -1,14 +1,14 @@
-#! /usr/local/bin/perl
+#! /usr/bin/perl
 
 #
-#	‚­‚¸‚Í‚·‚­‚è‚Õ‚Æ Rev.0.1 Preview 9 (2000.9.3)
-#	 (ƒgƒsƒbƒNˆê——•\¦)
+#	ããšã¯ã™ãã‚Šã·ã¨ Rev.0.1 Preview 9 (2000.9.3)
+#	 (ãƒˆãƒ”ãƒƒã‚¯ä¸€è¦§è¡¨ç¤º)
 #
 
 my ( @TID, %TCOUNT, %TTITLE, %TTIME );
 
 ###############################################################################
-#  ƒgƒsƒbƒNˆê——æ“¾
+#  ãƒˆãƒ”ãƒƒã‚¯ä¸€è¦§å–å¾—
 ###############################################################################
 
 sub gettopic {
@@ -20,15 +20,15 @@ sub gettopic {
 		$FORM{'e'} =~ /.*\.(.*)/;
 		if ( $1 =~ /htm/ || !$oldlogfmt ) {
 			
-			# HTMLŒ`®
-			# (HTMLŒ`®‚Ìê‡AƒXƒŒƒbƒhID‚Ìæ“¾‚ª‚Å‚«‚È‚¢‚Ì‚ÅA–{ƒXƒNƒŠƒvƒg‚Å‚Í
-			#  ƒTƒ|[ƒg‚³‚ê‚Ü‚¹‚ñ)
-			&prterror ( 'HTMLŒ`®‚Ì‰ß‹ƒƒO‚É‚Í‘Î‰‚µ‚Ä‚¢‚Ü‚¹‚ñ' );
+			# HTMLå½¢å¼
+			# (HTMLå½¢å¼ã®å ´åˆã€ã‚¹ãƒ¬ãƒƒãƒ‰IDã®å–å¾—ãŒã§ããªã„ã®ã§ã€æœ¬ã‚¹ã‚¯ãƒªãƒ—ãƒˆã§ã¯
+			#  ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¾ã›ã‚“)
+			&prterror ( 'HTMLå½¢å¼ã®éå»ãƒ­ã‚°ã«ã¯å¯¾å¿œã—ã¦ã„ã¾ã›ã‚“' );
 			
 		} else {
 			
-			# ƒoƒCƒiƒŠŒ`®
-			open ( OLDLOG, "$oldlogfiledir$FORM{'e'}" ) || &prterror ( "$FORM{'e'}‚ğŠJ‚¯‚Ü‚¹‚ñ‚Å‚µ‚½" );
+			# ãƒã‚¤ãƒŠãƒªå½¢å¼
+			open ( OLDLOG, "$oldlogfiledir$FORM{'e'}" ) || &prterror ( "$FORM{'e'}ã‚’é–‹ã‘ã¾ã›ã‚“ã§ã—ãŸ" );
 			eval 'flock ( OLDLOG, 1 )';
 			seek ( OLDLOG, 0, 0 );
 			@oldlog = <OLDLOG>;
@@ -54,13 +54,13 @@ sub gettopic {
 		}
 		
 	} else {
-		&prterror ( 'ƒtƒ@ƒCƒ‹–¼‚ª•s–¾‚Å‚·' );
+		&prterror ( 'ãƒ•ã‚¡ã‚¤ãƒ«åãŒä¸æ˜ã§ã™' );
 	}
 }
 
 
 ###############################################################################
-#  ƒgƒsƒbƒNˆê——•\¦
+#  ãƒˆãƒ”ãƒƒã‚¯ä¸€è¦§è¡¨ç¤º
 ###############################################################################
 
 sub lsttopic {
@@ -70,11 +70,11 @@ sub lsttopic {
 	&gettopic;
 	
 	$FORM{'e'} =~ /(\d\d\d\d)(\d\d)(\d\d)\.(\w)/;
-	&prthtmlhead ( "$bbstitle ƒgƒsƒbƒNˆê—— $1/$2/$3" );
+	&prthtmlhead ( "$bbstitle ãƒˆãƒ”ãƒƒã‚¯ä¸€è¦§ $1/$2/$3" );
 	
 	print <<EOF;
-<P><STRONG><FONT size="+1">$bbstitle ƒgƒsƒbƒNˆê——</FONT></STRONG></P>
-<FONT size="-1">•\\¦ - Œ” - “à—e - ÅIXV“ú</FONT>
+<P><STRONG><FONT size="+1">$bbstitle ãƒˆãƒ”ãƒƒã‚¯ä¸€è¦§</FONT></STRONG></P>
+<FONT size="-1">è¡¨\ç¤º - ä»¶æ•° - å†…å®¹ - æœ€çµ‚æ›´æ–°æ—¥æ™‚</FONT>
 <HR>
 <FONT size="-1">
 EOF
@@ -83,14 +83,14 @@ EOF
 		$tc = sprintf ( "%02d", $TCOUNT{$TID[$i]} );
 		$tt = &getnowdate ( $TTIME{$TID[$i]} );
 		print <<EOF;
-<A href="$cgiurl?m=t&ff=$FORM{'e'}&s=$TID[$i]&c=$FORM{'c'}">Ÿ</A> $tc $TTITLE{$TID[$i]} ($tt)<BR>
+<A href="$cgiurl?m=t&ff=$FORM{'e'}&s=$TID[$i]&c=$FORM{'c'}">â—†</A> $tc $TTITLE{$TID[$i]} ($tt)<BR>
 EOF
 	}
 	
 	print <<EOF;
 </FONT>
 <HR>
-<P align="right"><A href="$cgiurl">Œf¦”Â‚Ö</A></P>
+<P align="right"><A href="$cgiurl">æ²ç¤ºæ¿ã¸</A></P>
 </BODY>
 </HTML>
 EOF
