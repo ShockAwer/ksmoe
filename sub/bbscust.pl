@@ -1,13 +1,13 @@
-#! /usr/local/bin/perl
+#! /usr/bin/perl
 
 #
-#	�����͂�����Ղ� Rev.0.1 Preview 9 (2000.9.3)
-#	 (�l�p���ݒ��ʗp�֐��Q)
+#	くずはすくりぷと Rev.0.1 Preview 9 (2000.9.3)
+#	 (個人用環境設定画面用関数群)
 #
 
 
 ###############################################################################
-#  ���ݒ��ʕ\��
+#  環境設定画面表示
 ###############################################################################
 
 sub prtcustom {
@@ -16,57 +16,57 @@ sub prtcustom {
 	$follow[$followwin] = 'checked';
 	$reload[$reltype] = 'checked';
 	
-	&prthtmlhead ( "$bbstitle �l�p���ݒ�" );
+	&prthtmlhead ( "$bbstitle 個人用環境設定" );
 	print <<EOF;
-<H3>$bbstitle �l�p���ݒ�</H3><BR>
+<H3>$bbstitle 個人用環境設定</H3><BR>
 <FORM method="post" action="$cgiurl">
   <INPUT type="hidden" name="m" value="c">
   <INPUT type="hidden" name="nm" value="$FORM{'m'}">
   <UL>
-    <LI><STRONG>�\\���ݒ�</STRONG><BR> <BR>
+    <LI><STRONG>表\示設定</STRONG><BR> <BR>
     <TABLE border="0" cellspacing="0" cellpadding="0">
       <TR>
-        <TD>�����F�@�@�@</TD>
+        <TD>文字色　　　</TD>
         <TD><INPUT type="text" name="tc" size="7" value="$CC{'text'}"></TD>
-        <TD>�@�w�i�F</TD>
+        <TD>　背景色</TD>
         <TD><INPUT type="text" name="bc" size="7" value="$CC{'bg'}"></TD>
       </TR>
       <TR>
-        <TD>�����N�F</TD>
+        <TD>リンク色</TD>
         <TD><INPUT type="text" name="lc" size="7" value="$CC{'link'}"></TD>
-        <TD>�@�K��σ����N�F </TD>
+        <TD>　訪問済リンク色 </TD>
         <TD><INPUT type="text" name="vc" size="7" value="$CC{'vlink'}"></TD>
       </TR>
       <TR>
-        <TD>���p�F</TD>
+        <TD>引用色</TD>
         <TD><INPUT type="text" name="qc" size="7" value="$CC{'qmsgc'}"></TD>
-        <TD>�@</TD>
-        <TD>�@</TD>
+        <TD>　</TD>
+        <TD>　</TD>
       </TR>
     </TABLE>
   </UL>
   <UL>
-    <LI><STRONG>�t���@�\\�ݒ�</STRONG><BR> <BR>
-    gzip���k�]�� <INPUT type="checkbox" name="g" value="checked" $S_gzchk[$gzipu]><BR>
-    URL���������N <INPUT type="checkbox" name="a" value="checked" $S_alchk[$autolink]><BR>
+    <LI><STRONG>付加機能\設定</STRONG><BR> <BR>
+    gzip圧縮転送 <INPUT type="checkbox" name="g" value="checked" $S_gzchk[$gzipu]><BR>
+    URL自動リンク <INPUT type="checkbox" name="a" value="checked" $S_alchk[$autolink]><BR>
   </UL>
   <UL>
-    <LI><STRONG>�t�H���[��ʂ̕\\�����@</STRONG><BR> <BR>
-    <INPUT type="radio" name="fw" value="0" $follow[0]>�V�K�E�B���h�E���J���ĕ\\��<BR>
-    <INPUT type="radio" name="fw" value="1" $follow[1]>�V�K�E�B���h�E���J�����ɕ\\��<BR>
+    <LI><STRONG>フォロー画面の表\示方法</STRONG><BR> <BR>
+    <INPUT type="radio" name="fw" value="0" $follow[0]>新規ウィンドウを開いて表\示<BR>
+    <INPUT type="radio" name="fw" value="1" $follow[1]>新規ウィンドウを開かずに表\示<BR>
   </UL>
   <UL>
-    <LI><STRONG>�O�������[�h���̃��b�Z�[�W�̕\\�����@</STRONG><BR> <BR>
-    <INPUT type="radio" name="rt" value="0" $reload[0]>�W���i���e�����~���\\���j<BR>
-    <INPUT type="radio" name="rt" value="1" $reload[1]>���]�i���e���������\\���j<BR>
+    <LI><STRONG>０件リロード時のメッセージの表\示方法</STRONG><BR> <BR>
+    <INPUT type="radio" name="rt" value="0" $reload[0]>標準（投稿時刻降順表\示）<BR>
+    <INPUT type="radio" name="rt" value="1" $reload[1]>反転（投稿時刻昇順表\示）<BR>
   </UL>
   <BR>
-  �u�o�^�v����������ɕ\\�������URL���u�b�N�}�[�N�ɓo�^���܂��傤�B<BR>
-  ��L�̐ݒ�Ōf����K�₷�邱�Ƃ��ł��܂��B<BR> <BR>
-  <INPUT type="submit" value="�o�^">
-  <INPUT type="reset" value="���ɖ߂�">
-  <INPUT type="submit" name="cr" value="�K��l�ɖ߂�">
-  <INPUT type="submit" name="cdc" value="Cookie����">
+  「登録」を押した後に表\示されるURLをブックマークに登録しましょう。<BR>
+  上記の設定で掲示板を訪問することができます。<BR> <BR>
+  <INPUT type="submit" value="登録">
+  <INPUT type="reset" value="元に戻す">
+  <INPUT type="submit" name="cr" value="規定値に戻す">
+  <INPUT type="submit" name="cdc" value="Cookie消去">
 </FORM>
 </BODY>
 </HTML>
@@ -75,7 +75,7 @@ EOF
 
 
 ###############################################################################
-#  ���ݒ茋�ʉ�ʕ\��
+#  環境設定結果画面表示
 ###############################################################################
 
 sub setcustom {
