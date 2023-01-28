@@ -50,7 +50,7 @@ sub oldloglist {
 	
 	if ( $oldlogfmt && $oldlogbtn ) {
 		$dspqmsg = <<EOF;
-                <INPUT type="checkbox" name="btn" value="checked">引用機能\使用
+                <INPUT type="checkbox" name="btn" value="checked">Quote function use
 EOF
 	} else {
 		$dspqmsg = '&nbsp;';
@@ -58,26 +58,26 @@ EOF
 	
 	if ( $gzip ) {
 		$dspgzip = <<EOF;
-                <INPUT type="checkbox" name="g" value="checked" $S_gzchk[$gzipu]>gzip圧縮転送
+                <INPUT type="checkbox" name="g" value="checked" $S_gzchk[$gzipu]>G-zip compressed transfer
 EOF
 	} else {
 		$dspgzip = '&nbsp;';
 	}
 	
 	if ( &dlchk ) {
-		$dspdown = '1">ダウンロード';
+		$dspdown = '1">Download';
 	} else {
-		$dspdown = '2">全件表示';
+		$dspdown = '2">View All';
 	}
 	
-	opendir ( DIR, $oldlogfiledir ) || &prterror ( 'ディレクトリが開けませんでした' );
+	opendir ( DIR, $oldlogfiledir ) || &prterror ( 'Directory could not be opened.' );
 	@files = readdir ( DIR );
 	closedir ( DIR );
 	@files = sort { $a <=> $b; } @files;
 	
-	&prthtmlhead ( "$bbstitle 過去ログ検索・ダウンロード" );
+	&prthtmlhead ( "$bbstitle Search and download logs" );
 	print <<EOF;
-<P align="center"><STRONG><FONT size="+1">$bbstitle 過去ログ一覧</FONT></STRONG></P>
+<P align="center"><STRONG><FONT size="+1">$bbstitle List of logs</FONT></STRONG></P>
 
 <FORM method="GET" action="$cgiurl">
   <CENTER>
@@ -87,7 +87,7 @@ EOF
           <HR size="2">
           <TABLE border="0" width="100%">
             <TR>
-              <TD colspan="5">過去ログ一覧</TD>
+              <TD colspan="5">List of logs</TD>
             </TR>
 EOF
 	
@@ -107,7 +107,7 @@ EOF
 			}
 			if ( $oldlogfmt ) {
 				$dsptopic = <<EOF;
-              <TD align="right"><FONT size="-1"><A href="$cgiurl?m=l&e=$files[$i]">トピック一覧</A></FONT></TD>
+              <TD align="right"><FONT size="-1"><A href="$cgiurl?m=l&e=$files[$i]">Topic List</A></FONT></TD>
 EOF
 			} else {
 				$dsptopic = '';
@@ -135,24 +135,24 @@ EOF
           <TABLE border="0">
             <TR>
               <TD colspan="3">
-                キーワード指定
+                Search Keywords
               </TD>
             </TR>
             <TR>
               <TD colspan="3">
                 <INPUT type="text" name="kwd" size="40" maxlength="255">
-                <INPUT type="submit" value="   検   索   ">
+                <INPUT type="submit" value=" Search ">
               </TD>
             </TR>
             <TR>
               <TD>
-                <FONT size="-1">時刻指定</FONT>
+                <FONT size="-1">Time Specification</FONT>
               </TD>
               <TD>
-                <FONT size="-1">論理式</FONT>
+                <FONT size="-1">Logical expression</FONT>
               </TD>
               <TD>
-                <FONT size="-1">検索対象</FONT>
+                <FONT size="-1">Searching target</FONT>
               </TD>
             </TR>
             <TR>
@@ -185,7 +185,7 @@ EOF
                   <OPTION value="21">21</OPTION>
                   <OPTION value="22">22</OPTION>
                   <OPTION value="23">23</OPTION>
-                </SELECT> 時
+                </SELECT> When
                 <SELECT name="e1" size="1">
                   <OPTION value="0">00</OPTION>
                   <OPTION value="5">05</OPTION>
@@ -199,7 +199,7 @@ EOF
                   <OPTION value="45">45</OPTION>
                   <OPTION value="50">50</OPTION>
                   <OPTION value="55">55</OPTION>
-                </SELECT> 分から 
+                </SELECT> From the beginning 
                 <SELECT name="s2" size="1">
                   <OPTION value="24">24</OPTION>
                   <OPTION value="0">0</OPTION>
@@ -226,7 +226,7 @@ EOF
                   <OPTION value="21">21</OPTION>
                   <OPTION value="22">22</OPTION>
                   <OPTION value="23">23</OPTION>
-                </SELECT> 時
+                </SELECT> When
                 <SELECT name="e2" size="1">
                   <OPTION value="0">00</OPTION>
                   <OPTION value="5">05</OPTION>
@@ -240,7 +240,7 @@ EOF
                   <OPTION value="45">45</OPTION>
                   <OPTION value="50">50</OPTION>
                   <OPTION value="55">55</OPTION>
-                </SELECT> 分まで</FONT>
+                </SELECT> Up to a minute</FONT>
 EOF
 	} else {
 		print <<EOF;
@@ -276,7 +276,7 @@ EOF
                   <OPTION value="29">29</OPTION>
                   <OPTION value="30">30</OPTION>
                   <OPTION value="31">31</OPTION>
-                </SELECT> 日 
+                </SELECT> Japan 
                 <SELECT name="e1" size="1">
                   <OPTION value="0">0</OPTION>
                   <OPTION value="1">1</OPTION>
@@ -302,7 +302,7 @@ EOF
                   <OPTION value="21">21</OPTION>
                   <OPTION value="22">22</OPTION>
                   <OPTION value="23">23</OPTION>
-                </SELECT> 時 から
+                </SELECT> Time to
                 <SELECT name="s2" size="1">
                   <OPTION value="1">1</OPTION>
                   <OPTION value="2">2</OPTION>
@@ -335,7 +335,7 @@ EOF
                   <OPTION value="29">29</OPTION>
                   <OPTION value="30">30</OPTION>
                   <OPTION value="31" selected>31</OPTION>
-                </SELECT> 日
+                </SELECT> Japan
                 <SELECT name="e2" size="1">
                   <OPTION value="24">24</OPTION>
                   <OPTION value="0">0</OPTION>
@@ -369,15 +369,15 @@ EOF
               </TD>
               <TD><FONT size="-1">
                 <SELECT name="ao">
-                  <OPTION value="a">AND検索</OPTION>
-                  <OPTION value="o">OR検索</OPTION>
+                  <OPTION value="a">AND</OPTION>
+                  <OPTION value="o">OR</OPTION>
                 </SELECT></FONT>
               </TD>
               <TD><FONT size="-1">
                 <SELECT name="tt">
-                  <OPTION value="a">全文</OPTION>
-                  <OPTION value="u">投稿者名</OPTION>
-                  <OPTION value="t">題名</OPTION>
+                  <OPTION value="a">Fulltext</OPTION>
+                  <OPTION value="u">Posters Name</OPTION>
+                  <OPTION value="t">Title</OPTION>
                 </SELECT></FONT>
               </TD>
             </TR>
@@ -389,11 +389,11 @@ EOF
           <TABLE border="0" width="100%">
             <TR>
               <TD width="50%"><FONT size="-1">
-                <INPUT type="checkbox" name="alp" value="checked" checked>大文字小文字同一視<BR>
+                <INPUT type="checkbox" name="alp" value="checked" checked>Case-sensitivity<BR>
                 $dspqmsg</FONT>
               </TD>
               <TD width="50%"><FONT size="-1">
-                <INPUT type="checkbox" name="j" value="checked">jcode.pl使用<BR>
+                <INPUT type="checkbox" name="j" value="checked">jcode.pl use<BR>
                 $dspgzip</FONT>
               </TD>
             </TR>
@@ -411,9 +411,9 @@ EOF
   <INPUT type="hidden" name="k" value="あ">
   <INPUT type="hidden" name="sv" value="on">
 </FORM>
-<P align="center"><A href="$cgiurl">掲示板へ</A></P>
-<H4 align="right">Getlog Ver0.3b4.0921<BR>
-（くずはすくりぷと組み込みバージョン）</H4>
+<P align="center"><A href="$cgiurl">Go to Bulletin Board</A></P>
+<H4 align="right">Getlog Ver0.3b4.0921E<BR>
+（Built-in KuzuhaScript version）</H4>
 </BODY>
 </HTML>
 EOF
@@ -442,7 +442,7 @@ sub prtoldlog {
 	  $hitcount
 	  );
 	
-	open ( OLDLOG, "$oldlogfiledir$FORM{'e'}" ) || &prterror ( "$FORM{'e'}を開けませんでした" );
+	open ( OLDLOG, "$oldlogfiledir$FORM{'e'}" ) || &prterror ( "$FORM{'e'} could not be opened." );
 	eval 'flock ( OLDLOG, 1 )';
 	seek ( OLDLOG, 0, 0 );
 	@oldlog = <OLDLOG>;
@@ -568,9 +568,9 @@ sub prtoldlog {
 			
 			if ( $FORM{'kwd'} ) {
 				if ( $hitcount > 0 ) {
-					print "<H3>$hitcount件見つかりました。</H3>";
+					print "<H3>$hitcount found case.</H3>";
 				} else {
-					print "<H3>指定されたキーワードに該当するメッセージは見つかりませんでした。</H3>";
+					print "<H3>No messages were found for the specified keywords. </H3>";
 				}
 			}
 			
@@ -650,9 +650,9 @@ sub prtoldlog {
 			
 			if ( $FORM{'kwd'} ) {
 				if ( $hitcount > 0 ) {
-					print "<H3>$hitcount件見つかりました。</H3>";
+					print "<H3>$hitcount found. </H3>";
 				} else {
-					print "<H3>指定されたキーワードに該当するメッセージは見つかりませんでした。</H3>";
+					print "<H3>No messages were found for the specified keywords. </H3>";
 				}
 			}
 			
@@ -685,7 +685,7 @@ sub getlog {
 		
 		if ( !$FORM{'e'} ) {
 			
-			&prthtmlhead ( "$bbstitle 過去ログ" );
+			&prthtmlhead ( "$bbstitle log" );
 			$fcount = 0;
 			foreach ( sort keys %FORM ) {
 				if ( $_ =~ /^chk([\w.]+)$/ && $FORM{$_} eq 'checked' ) {
@@ -695,7 +695,7 @@ sub getlog {
 				}
 			}
 			if ( !$fcount ) {
-				&prterror ( '表示するファイルを指定してください。' );
+				&prterror ( 'Please specify the file to display. ' );
 			}
 			
 		} else {
@@ -712,14 +712,14 @@ Content-Disposition: attachment; filename="$sendfile"
 
 <HTML>
 <HEAD>
-<TITLE>$bbstitle 過去ログ</TITLE>
-<META http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>$bbstitle log</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </HEAD>
 
 $body
 EOF
 			} else {
-				&prthtmlhead ( "$bbstitle 過去ログ $FORM{'e'}" );
+				&prthtmlhead ( "$bbstitle log $FORM{'e'}" );
 			}
 			&prtoldlog;
 		}
